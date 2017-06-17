@@ -48,7 +48,7 @@ class kcentre{
          */
         void Centres(const MatType& data ,
                      const size_t num_centres,
-                     arma::mat& centres,,
+                     arma::mat& centres,
                      const bool initialGuess = false);
 
 
