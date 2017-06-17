@@ -37,7 +37,7 @@ class SampleInitialization{
     }
 
 };
-}
 
 }
-
+}
+#endif
