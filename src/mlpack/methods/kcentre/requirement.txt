@@ -1,1 +1,2 @@
 #sample_initialization part
+https://scicomp.stackexchange.com/questions/19016/gonzalez-algorithm
