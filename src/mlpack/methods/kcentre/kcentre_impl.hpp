@@ -51,6 +51,18 @@ void kcentre<MetricType ,
                     //fill the centres matrix with InitialPartitionPolicy
                      InitialPartitionPolicy::Centres(data,num_centres ,centres);
                  }
+                 size_t interations = 0;
+                 double cNorm;
+                 do{
+                    iterations++;
+                 }while(cNorm > 1e-5 && iterations != maxIterations);
+
+                 if(iterations != maxIterations){
+                    Log::Info << "kcentre::Centres(): converged after " << iterations << " iterations"<<std::endl;
+                 }
+                 else{
+                    Log::Info << "Max Limit of Num of Interations reached " << std::endl;
+                 }
 
              }
 }

@@ -33,7 +33,7 @@ class kcentre{
         InitialPartitionPolicy sampler;
     public:
         /*
-         * @param maxIterations Max Number of iterations allowed before giving up
+          @param maxIterations Max Number of iterations allowed before giving up
          * @parram metric When special selection policy is required
          * @param InitialPartitionPolicy When special selection policy is required
          */
