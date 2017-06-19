@@ -46,9 +46,9 @@ int main(int argc , char * argv[]){
     }
     Timer::Start("Run Time");
     kcentre<metric::EuclideanDistance,
-            SampleInitialization
+            SampleInitialization,
             arma::mat> kcentre(maxIterations, metric::EuclideanDistance(), SampleInitialization());
-    kcentre.Centres(dataPoints,numCentres,centres , initialCentresGuess);
+    kcentre.Centres(dataPoints , numCentres, centres , initialCentresGuess);
     Timer::Stop("Run Time");
     
     return 0;
