@@ -34,7 +34,7 @@ int main(int argc , char * argv[]){
         // run the dual tree algorithm
     }
     else if(algorithm == "naive"){
-        // run the daul tree algorithm
+        // run the gonzalez algorithm
     }
     arma::mat dataPoints = std::move(CLI::GetParam<arma::mat>("input"));
     arma::mat centres;
