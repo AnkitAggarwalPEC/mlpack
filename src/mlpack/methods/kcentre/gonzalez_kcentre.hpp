@@ -5,6 +5,9 @@
 #ifndef MLPACK_METHODS_KCENTRE_GONZALEZ_HPP
 #define MLPACK_METHODS_KCENTRE_GONZALEZ_HPP
 //includes here
+#include <mlpack/core/tree/binary_space_tree.hpp>
+#include "gonzalez_kcentre_statistic.hpp"
+
 namespace mlpack{
 namespace kcentre{
 /*
@@ -34,8 +37,13 @@ namespace kcentre{
             MetricType & metric;
             //! To store the min of max distance of between the points and their corresponding centres
             double minMaxDistance;
+            //!Typedef for the tree
+            typedef tree::KDTree<MetricType ,GonzalezKcentreStatistic , MatType > TreeType;
+            //The tree built on the points
+            TreeType * tree;
     };
 }
 }
 #include "gonzalez_kcentre_impl.hpp"
+
 #endif
