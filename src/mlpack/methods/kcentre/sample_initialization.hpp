@@ -31,16 +31,8 @@ class SampleInitialization{
         centres.set_size(data.n_rows , num_centres);
         const auto index = math::RandInt(0 , data.n_cols);
         centres.col(0) = data.col(index);
-        /*
-        for(size_t i = 0 ; i < num_centres ; i++){
-            //Randomly select the point
-            const auto index = math::RandInt(0 , data.n_cols);
-            centres.col(i) = data.col(index);
-        */
     }
-
 };
-
 }
 }
 #endif

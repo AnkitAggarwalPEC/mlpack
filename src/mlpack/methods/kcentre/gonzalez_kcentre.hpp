@@ -26,8 +26,7 @@ namespace kcentre{
             /*
              * Run the single iteration of Gonzalez Algorithm updating the given centres to new centres
              */
-            void Iterate(const MatType& centres, 
-                        MatType& new_centres);
+            void Iterate(MatType& centres);
             /*
              */
         private:
@@ -35,8 +34,6 @@ namespace kcentre{
             const MatType & datasetOrig;
             //! The metric
             MetricType & metric;
-            //! To store the min of max distance of between the points and their corresponding centres
-            double minMaxDistance;
             //!Typedef for the tree
             typedef tree::KDTree<MetricType ,GonzalezKcentreStatistic , MatType > TreeType;
             //The tree built on the points
