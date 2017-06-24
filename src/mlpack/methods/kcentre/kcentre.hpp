@@ -50,8 +50,6 @@ class kcentre{
                      const size_t num_centres,
                      arma::mat& centres,
                      const bool initialGuess = false);
-
-
 };
 
 }

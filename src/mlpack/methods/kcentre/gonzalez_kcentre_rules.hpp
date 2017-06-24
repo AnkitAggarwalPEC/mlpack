@@ -20,12 +20,10 @@ namespace kcentre{
              *
              * @param dataset The dataset on which tree is built
              * @param centres Current Centres
-             * @param new_centres New centres after this iteration
              * @param metric Instantiated metric
              */
             GonzalezKcentreRules(const MatType & dataset,
-                                 const MatType & centres,
-                                 MatType & new_centres,
+                                 MatType & centres,
                                  MetricType& metric
                                 );
             
@@ -47,8 +45,7 @@ namespace kcentre{
 
         private:
             const MatType & dataset;
-            const MatType & centres;
-            MatType & new_centres;
+            MatType & centres;
             MetricType & metric;
     };
 }

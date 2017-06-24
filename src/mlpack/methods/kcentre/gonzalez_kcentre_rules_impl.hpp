@@ -11,12 +11,10 @@ namespace kcentre{
     template <typename MetricType, typename TreeType , typename MatType>
     GonzalezKcentreRules<MetricType , TreeType , MatType> ::
     GonzalezKcentreRules(const MatType & dataset,
-                         const MatType & centres,
-                         MatType & new_centres,
-                         MetricType & metric):
+                        MatType & centres,
+                        MetricType & metric):
         dataset(dataset),
         centres(centres),
-        new_centres(new_centres),
         metric(metric)
     {}
 

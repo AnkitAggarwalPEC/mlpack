@@ -15,7 +15,6 @@ namespace kcentre{
             MetricType& metric):
             datasetOrig(dataset),
             metric(metric),
-            minMaxDistance(0.0),
             tree(new TreeType(const_cast<MatType&>(datasetOrig))),
     {}
     
@@ -27,12 +26,9 @@ namespace kcentre{
     }
 
     typename<typename MetricType , typename MatType>
-    void GonzalezKcentre<MetricType,MatType>::Iterate(
-            const MatType& centres,
-            MatType& new_centres){
-        new_centres.zeros(centres.n_rows,centres.n_cols);
+    void GonzalezKcentre<MetricType,MatType>::Iterate(MatType& centres){
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
-        RulesType rules(dataset , centres , new_centres , metric);
+        RulesType rules(dataset , centres , metric);
         typename TreeType::SingleTreeTranverser<RulesType> traverser(rules);
         traverser.Traverse(0 , *tree);
     }
