@@ -15,28 +15,45 @@ namespace kcentre{
 class GonzalezKcentreStatistic{
     private:
         //! Upper bound on the distance to the nearest neighbour of any points in this node
-        double maxNeighbourDistance;
+        double closetCentreDistance;
         //! Lower bound on the distanc to the nearest neighbour of any points in this node
-        double minNeighbourDistance;
-        
-        int currentCentre;
+        double farthestCentreDistance;
+        //! Current Closest Centre         
+        int currentClosestCentre;
+        //! Current Farthest Centre
+        int currentFarthestCentre;
     public:
         //! Empty Constructor
         GonzalezKcentreStatistic():
-            maxNeighbourDistance(DBL_MAX),
-            minNeighbourDistance(DBL_MIN),
-            currentCentre(DBL_MAX),
-            currentCentre(-1)
+            closetCentreDistance(DBL_MAX),
+            farthestCentreDistance(DBL_MIN),
+            currentClosestCentre(-1),
+            currentFarthestCentre(-1)
         {}
 
         //! Initialize the statistic for the node
         template <typename TreeType>
         GonzalezKcentreStatistic(TreeType & node):
-            maxNeighbourDistance(DBL_MAX),
-            minNeighbourDistance(DBL_MIN),
-            currentCentre(DBL_MAX),
-            currentCentre(-1)
+            closetCentreDistance(DBL_MAX),
+            farthestCentreDistance(DBL_MIN),
+            currentClosestCentre(-1),
+            currentFarthestCentre(-1)
         {}
+        //setter and getter for the member variable
+
+        double & ClosetCentreDistance(){
+            return closetCentreDistance;
+        }
+        
+        double & FarthestCentreDistance(){
+            return farthestCentreDistance;
+        }
+        int & CurrentClosestCentre(){
+            return currentClosestCentre;
+        }
+        int & CurrentFarthestCentre(){
+            return currentFarthestCentre;
+        }
 };
 }
 }
