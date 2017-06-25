@@ -36,8 +36,13 @@ namespace kcentre{
             MetricType & metric;
             //!Typedef for the tree
             typedef tree::KDTree<MetricType ,GonzalezKcentreStatistic , MatType > TreeType;
-            //The tree built on the points
+            //! Distance Matrix to store the distance between each point as we go
+            MetricType distances;
+            //! The tree built on the points
             TreeType * tree;
+            //! To store the farthest point index to append in centre matrix 
+            int farthestPoint;
+
     };
 }
 }

@@ -52,16 +52,20 @@ void kcentre<MetricType ,
                      InitialPartitionPolicy::Centres(data,num_centres ,centres);
                  }
                  size_t interations = 0;
-                 double cNorm;
-                 do{
-                    iterations++;
-                 }while(cNorm > 1e-5 && iterations != maxIterations);
-
-                 if(iterations != maxIterations){
-                    Log::Info << "kcentre::Centres(): converged after " << iterations << " iterations"<<std::endl;
+                 //as we have chosen the first centre run the algorithm 1 to k times as after each iteration we choose the another centre and update the centre matrix
+                 for(iteration = 1 ; iteration < k && iteration < maxIterations ; i++){
+                     //call the main function here
+                     //Assume the type object
+                     Object.Iterate(centres , iteration);
+                 }
+                 if(iteration != k and iteration == maxIterations){
+                    Log << Warn << "Max Number of iteration limit:" <<maxIterations << " reached"<< std::endl;
+                    Centres()
                  }
                  else{
-                    Log::Info << "Max Limit of Num of Interations reached " << std::endl;
+                    // algorithm disconnected after running till choosing "k" centres
+                    Log << Warn << "Algorithm reached till the choosing k centre" << std::endl;
+                    //create the method to print centre somehow
                  }
 
              }

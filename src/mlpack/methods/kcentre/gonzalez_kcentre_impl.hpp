@@ -16,6 +16,8 @@ namespace kcentre{
             datasetOrig(dataset),
             metric(metric),
             tree(new TreeType(const_cast<MatType&>(datasetOrig))),
+            farthestPointIndex(0),
+            farthestPointDistance(DBL_MIN)
     {}
     
     template<typename MetricType , typename MatType>
@@ -26,11 +28,12 @@ namespace kcentre{
     }
 
     typename<typename MetricType , typename MatType>
-    void GonzalezKcentre<MetricType,MatType>::Iterate(MatType& centres){
+    void GonzalezKcentre<MetricType,MatType>::Iterate(MatType& centres , int centreIndex){
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
-        RulesType rules(dataset , centres , metric);
+        RulesType rules(dataset , centres , metric , distances , farthestPoint , farthestPointDistance);
         typename TreeType::SingleTreeTranverser<RulesType> traverser(rules);
         traverser.Traverse(0 , *tree);
+
     }
 }
 }

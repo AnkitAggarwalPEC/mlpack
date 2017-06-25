@@ -24,7 +24,11 @@ namespace kcentre{
              */
             GonzalezKcentreRules(const MatType & dataset,
                                  MatType & centres,
-                                 MetricType& metric
+                                 MetricType& metric,
+                                 int centreIndex,
+                                 MetricType & distances,
+                                 int farthestPointIndex,
+                                 double farthestPointDistance
                                 );
             
             /*
@@ -47,6 +51,9 @@ namespace kcentre{
             const MatType & dataset;
             MatType & centres;
             MetricType & metric;
+            int centreIndex;
+            MetricType & distances;
+            
     };
 }
 }
