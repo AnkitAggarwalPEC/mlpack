@@ -5,7 +5,7 @@ set(SOURCES
     gonzalez_kcentre.hpp
     kcentre.hpp
     kcentre_impl.hpp
-    kcentre_main.hpp
+    kcentre_main.cpp
 )
 
 # Add directory name to sources.

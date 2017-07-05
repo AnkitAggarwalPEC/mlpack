@@ -27,8 +27,7 @@ namespace kcentre{
                                  MetricType& metric,
                                  int centreIndex,
                                  MetricType & distances,
-                                 int farthestPointIndex,
-                                 double farthestPointDistance
+                                 int farthestPointIndex
                                 );
             
             /*
@@ -53,6 +52,7 @@ namespace kcentre{
             MetricType & metric;
             int centreIndex;
             MetricType & distances;
+            int farthestPointIndex ;
             
     };
 }

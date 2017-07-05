@@ -8,8 +8,14 @@
 
 namespace mlpack{
 namespace kcentre{
-    template <typename MetricType, typename TreeType , typename MatType>
-    GonzalezKcentreRules<MetricType , TreeType , MatType> ::
+    template <
+            typename MetricType,
+            typename TreeType,
+            typename MatType>
+    GonzalezKcentreRules<
+                        MetricType,
+                        TreeType,
+                        MatType> ::
     GonzalezKcentreRules(const MatType & dataset,
                         MatType & centres,
                         MetricType & metric,
@@ -20,18 +26,31 @@ namespace kcentre{
         centres(centres),
         metric(metric),
         centreIndex(centreIndex),
-        distances(distances)
+        distances(distances),
+        farthestPointIndex(farthestPointIndex)
     {}
-    template <typename MetricType, typename TreeType , typename MatType>
-    GonzalezKcentreRules<MetricType , TreeType , MatType> ::
-    double BaseCase(const size_t queryIndex , const size_t referenceIndex ){
+
+    template <
+            typename MetricType,
+            typename TreeType,
+            typename MatType>
+    double GonzalezKcentreRules<MetricType,
+                        TreeType,
+                        MatType> :: BaseCase(const size_t queryIndex , const size_t referenceIndex ){
         return 0.0;
     }
 
-    //The queryIndex is Fake one. We will be always working upon the reference node and current centres and update the current centre 
-    template <typename MetricType, typename TreeType , typename MatType>
-    GonzalezKcentreRules<MetricType , TreeType , MatType> ::
-    double Score(const size_t queryIndex , TreeType & referenceNode){
+    //The queryIndex is Fake one. We will be always working upon the reference node and current centres and update the current centre
+
+    template <
+            typename MetricType,
+            typename TreeType,
+            typename MatType>
+    double GonzalezKcentreRules<
+                                MetricType,
+                                TreeType,
+                                MatType> ::
+    Score(const size_t queryIndex , TreeType & referenceNode){
         double maxDistancedPointDistance = DBL_MIN;
         int maxDistancedPointIndex = -1;
         //we have reached the node containing points
@@ -54,10 +73,17 @@ namespace kcentre{
         return 0.0;
     }
 
-    template <typename MetricType, typename TreeType , typename MatType>
-    GonzalezKcentreRules<MetricType , TreeType , MatType> ::
-    double ReScore(const size_t queryIndex , TreeType & referenceNode , const double oldScore){
+    template <
+            typename MetricType,
+            typename TreeType,
+            typename MatType>
+    double GonzalezKcentreRules<
+                        MetricType,
+                        TreeType,
+                        MatType> ::
+    ReScore(const size_t queryIndex , TreeType & referenceNode , const double oldScore){
         return oldScore;
     }
 }
 }
+#endif

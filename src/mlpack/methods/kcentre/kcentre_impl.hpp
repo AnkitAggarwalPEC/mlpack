@@ -3,7 +3,7 @@
  * @author Ankit Aggarwal
  */
 #include "kcentre.hpp"
-#include <mlpack/core/metrics/lmetric/hpp>
+#include <mlpack/core/metrics/lmetric.hpp>
 
 namespace mlpack{
 namespace kcentre{
@@ -11,7 +11,13 @@ namespace kcentre{
 //constructor definition
 template <typename MetricType,
          typename InitialPartitionPolicy,
+         template <class ,class> class solver,
          typename MatType>
+kcentre<
+        MetricType,
+        InitialPartitionPolicy,
+        solver,
+        MatType>::
 kcentre(const size_t maxIterations,
         const MetricType metric,
         const InitialPartitionPolicy sampler):
@@ -21,14 +27,16 @@ kcentre(const size_t maxIterations,
     {}
 template <typename MetricType , 
           typename InitialPartitionPolicy,
+          template <class ,class> class solver,
           typename MatType>
 void kcentre<MetricType ,
-             InitialPartitionPolicy, 
+             InitialPartitionPolicy,
+             solver,
              MatType>::
              Centres(const MatType & data ,
                      const size_t num_centres ,
                      arma::mat & centres,
-                     const bool initialGuess = false){
+                     const bool initialGuess ){
                  //sanity check for the number of centre parameter passed
                  if(num_centres > data.n_cols){
                     Log::Warn << "kcentre::Centres more number of centres requested than given points" << std::endl;
@@ -39,7 +47,7 @@ void kcentre<MetricType ,
 
                  //if initialGuess is set i.e intial centres are passed
                  if(initialGuess){
-                    if(centres.n_cols != centres){
+                    if(centres.n_cols != num_centres){
                         Log::Fatal << "kcentre::Centres: wrong number of initail centres"<<std::endl; 
                     }
                     if(centres.n_rows != data.n_rows){
@@ -51,14 +59,14 @@ void kcentre<MetricType ,
                     //fill the centres matrix with InitialPartitionPolicy
                      InitialPartitionPolicy::Centres(data,num_centres ,centres);
                  }
-                 size_t interations = 0;
+                 size_t iterations = 0;
                  //as we have chosen the first centre run the algorithm 1 to k times as after each iteration we choose the another centre and update the centre matrix
-                 for(iteration = 1 ; iteration < k && iteration < maxIterations ; i++){
+                 for(iterations = 1 ; iterations < num_centres && iteration < maxIterations ; interations++){
                      //call the main function here
                      //Assume the type object
                      Object.Iterate(centres , iteration);
                  }
-                 if(iteration != k and iteration == maxIterations){
+                 if(iterations != num_centres and iterations == maxIterations){
                     Log << Warn << "Max Number of iteration limit:" <<maxIterations << " reached"<< std::endl;
                     Centres()
                  }

@@ -11,6 +11,7 @@
 #include "sample_initialization.hpp"
 #include <mlpack/core/metrics/lmetric.hpp> //include for distance function definition
 #include <mlpack/core/tree/binary_space_tree.hpp>
+#include "gonzalez_kcentre.hpp"
 
 namespace mlpack{
 namespace kcentre{
@@ -24,6 +25,7 @@ namespace kcentre{
  */
 template<typename MetricType = metric::EuclideanDistance,
          typename InitialPartitionPolicy = SampleInitialization,
+         template <class , class> class solver = GonzalezKcentre, 
          typename MatType = arma::mat
         >
 class kcentre{
@@ -39,7 +41,7 @@ class kcentre{
          */
         kcentre(const size_t maxIterations = 1000,
                 const MetricType metric =  MetricType(),
-                const InitialPartitionPolicy sampler = InitialPartitionPolicy(),
+                const InitialPartitionPolicy sampler = InitialPartitionPolicy()
                 );
         /* Run the k Centre algorithm on the data provided
          * @param data Dataset for the algorithm
@@ -56,3 +58,4 @@ class kcentre{
 }
 #include "kcentre_impl.hpp"
 #endif
+

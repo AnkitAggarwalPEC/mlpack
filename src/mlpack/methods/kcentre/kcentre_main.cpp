@@ -8,7 +8,6 @@
 #include <mlpack/core/util/cli.hpp>
 #include "kcentre.hpp"
 #include "sample_initialization.hpp"
-
 using namespace mlpack;
 using namespace mlpack::kcentre;
 using namespace std;
@@ -32,9 +31,11 @@ int main(int argc , char * argv[]){
     auto algorithm = CLI::GetParam<std::string>("algorithm");
     if(algorithm == "dualtree"){
         // run the dual tree algorithm
+        using solver = GonzalezKcentre<metric::EuclideanDistance>; 
     }
     else if(algorithm == "naive"){
         // run the gonzalez algorithm
+        using solver = GonzalezKcentre<metric::EuclideanDistance>;
     }
     arma::mat dataPoints = std::move(CLI::GetParam<arma::mat>("input"));
     arma::mat centres;
@@ -47,6 +48,7 @@ int main(int argc , char * argv[]){
     Timer::Start("Run Time");
     kcentre<metric::EuclideanDistance,
             SampleInitialization,
+            solver,
             arma::mat> kcentre(maxIterations, metric::EuclideanDistance(), SampleInitialization());
     kcentre.Centres(dataPoints , numCentres, centres , initialCentresGuess);
     Timer::Stop("Run Time");
