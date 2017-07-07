@@ -23,6 +23,7 @@ class GonzalezKcentreStatistic{
         //! Current Farthest Centre
         int currentFarthestCentre;
     public:
+        
         //! Empty Constructor
         GonzalezKcentreStatistic():
             closetCentreDistance(DBL_MAX),
@@ -30,7 +31,6 @@ class GonzalezKcentreStatistic{
             currentClosestCentre(-1),
             currentFarthestCentre(-1)
         {}
-
         //! Initialize the statistic for the node
         template <typename TreeType>
         GonzalezKcentreStatistic(TreeType & node):
@@ -39,6 +39,7 @@ class GonzalezKcentreStatistic{
             currentClosestCentre(-1),
             currentFarthestCentre(-1)
         {}
+        
         //setter and getter for the member variable
 
         double & ClosetCentreDistance(){

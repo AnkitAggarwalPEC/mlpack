@@ -32,12 +32,13 @@ namespace KCentre{
     void GonzalezKcentre<
                         MetricType,
                         MatType>::
-    Iterate(MatType& centres){
+    Iterate(MatType& centres  , size_t centreIndex){
+        //! TreeType defined in .hpp
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
-        RulesType rules(datasetOrig , centres , metric ,0 , distances , farthestPointIndex);
+        RulesType rules(datasetOrig , centres , metric ,centreIndex , distances , farthestPointIndex);
         typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
         traverser.Traverse(0 , *tree);
-
+        centres.col(centreIndex) = datasetOrig.col(farthestPointIndex);
     }
 }
 }

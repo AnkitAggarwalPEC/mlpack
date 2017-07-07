@@ -21,7 +21,7 @@ namespace KCentre{
                         MetricType & metric,
                         int centreIndex,
                         MetricType  & distances,
-                        int farthestPointIndex):
+                        int &farthestPointIndex):
         dataset(dataset),
         centres(centres),
         metric(metric),
@@ -36,7 +36,7 @@ namespace KCentre{
             typename MatType>
     double GonzalezKcentreRules<MetricType,
                         TreeType,
-                        MatType> :: BaseCase(const size_t queryIndex , const size_t referenceIndex ){
+                        MatType> :: BaseCase(const size_t /*queryIndex*/ , const size_t /*referenceIndex*/ ){
         return 0.0;
     }
 
@@ -50,9 +50,8 @@ namespace KCentre{
                                 MetricType,
                                 TreeType,
                                 MatType> ::
-    Score(const size_t queryIndex , TreeType & referenceNode){
+    Score(const size_t /*queryIndex*/ , TreeType & referenceNode){
         double maxDistancedPointDistance = DBL_MIN;
-        int maxDistancedPointIndex = -1;
         //we have reached the node containing points
         for(int i = 0 ; i < referenceNode.NumPoints() ; ++i){
             // Evaluating the distance of each point from the current index and update the stats
@@ -62,8 +61,8 @@ namespace KCentre{
                 referenceNode.Stat().ClosetCentreDistance() = distance;
             }
             else if(referenceNode.Stat().FarthestCentreDistance() < distance){
-                referenceNode.Stat().FarthestCentreDistance() = distance;
                 referenceNode.Stat().CurrentFarthestCentre() = i;
+                referenceNode.Stat().FarthestCentreDistance() = distance;
             }
             if(referenceNode.Stat().ClosetCentreDistance() > maxDistancedPointDistance){
                 maxDistancedPointDistance = referenceNode.Stat().ClosetCentreDistance();
@@ -81,7 +80,7 @@ namespace KCentre{
                         MetricType,
                         TreeType,
                         MatType> ::
-    Rescore(const size_t queryIndex , TreeType & referenceNode , const double oldScore){
+    Rescore(const size_t /*queryIndex*/ , TreeType & /*referenceNode*/ , const double oldScore){
         return oldScore;
     }
 }

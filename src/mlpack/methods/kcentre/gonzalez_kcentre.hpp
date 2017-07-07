@@ -26,7 +26,7 @@ namespace KCentre{
             /*
              * Run the single iteration of Gonzalez Algorithm updating the given centres to new centres
              */
-            void Iterate(MatType& centres);
+            void Iterate(MatType& centres , size_t centreIndex);
             /*
              */
         private:
