@@ -56,10 +56,10 @@ namespace KCentre{
         //we have reached the node containing points
         for(int i = 0 ; i < referenceNode.NumPoints() ; ++i){
             // Evaluating the distance of each point from the current index and update the stats
-            auto distance = metric.evaluate(centres.col(centreIndex) , dataset.col(referenceNode.Point(i)));
+            auto distance = metric.Evaluate(centres.col(centreIndex) , dataset.col(referenceNode.Point(i)));
             if(referenceNode.Stat().ClosetCentreDistance() > distance){
-                referenceNode.Stat().CurrentClosetCentre() = i;
-                referenceNode.Stat().ClosetCentreDistance() = distances;
+                referenceNode.Stat().CurrentClosestCentre() = i;
+                referenceNode.Stat().ClosetCentreDistance() = distance;
             }
             else if(referenceNode.Stat().FarthestCentreDistance() < distance){
                 referenceNode.Stat().FarthestCentreDistance() = distance;
@@ -81,7 +81,7 @@ namespace KCentre{
                         MetricType,
                         TreeType,
                         MatType> ::
-    ReScore(const size_t queryIndex , TreeType & referenceNode , const double oldScore){
+    Rescore(const size_t queryIndex , TreeType & referenceNode , const double oldScore){
         return oldScore;
     }
 }

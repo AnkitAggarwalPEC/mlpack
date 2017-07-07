@@ -60,11 +60,12 @@ void kcentre<MetricType ,
                      InitialPartitionPolicy::Centres(data,num_centres ,centres);
                  }
                  size_t iterations = 0;
+                 Solver<MetricType ,  MatType> solver_obj(data , metric);
                  //as we have chosen the first centre run the algorithm 1 to k times as after each iteration we choose the another centre and update the centre matrix
                  for(iterations = 1 ; iterations < num_centres && iterations < maxIterations ; iterations++){
                      //call the main function here
                      //Assume the type object
-                     Solver<MetricType , MatType>.Iterate(centres , iterations);
+                     solver_obj.Iterate(centres);
                  }
                  if(iterations != num_centres and iterations == maxIterations){
                      Log :: Warn << "Max Number of iteration limit:" <<maxIterations << " reached"<< std::endl;

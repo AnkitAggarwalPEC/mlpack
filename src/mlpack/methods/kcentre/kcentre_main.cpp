@@ -40,25 +40,16 @@ int main(int argc , char * argv[]){
     Timer::Start("Run Time");
     if(algorithm == "dualtree"){
         // run the dual tree algorithm
-        using Solver = GonzalezKcentre<metric::EuclideanDistance , arma::mat>; 
         
-        kcentre<
-            metric::EuclideanDistance,
-            SampleInitialization,
-            Solver,
-            arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
+        kcentre< metric::EuclideanDistance , SampleInitialization, GonzalezKcentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
 
         kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
     }
     else if(algorithm == "naive"){
         // run the gonzalez algorithm
-        using Solver = GonzalezKcentre<metric::EuclideanDistance , arma::mat>;
 
         Timer::Start("Run Time");
-        kcentre<metric::EuclideanDistance,
-            SampleInitialization,
-            Solver,
-            arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
+        kcentre<metric::EuclideanDistance, SampleInitialization,GonzalezKcentre, arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
 
         kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
     }

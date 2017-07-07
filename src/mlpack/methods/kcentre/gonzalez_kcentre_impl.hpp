@@ -34,8 +34,8 @@ namespace KCentre{
                         MatType>::
     Iterate(MatType& centres){
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
-        RulesType rules(datasetOrig , centres , metric , distances , farthestPointIndex);
-        typename TreeType::template SingleTreeTranverser<RulesType> traverser(rules);
+        RulesType rules(datasetOrig , centres , metric ,0 , distances , farthestPointIndex);
+        typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
         traverser.Traverse(0 , *tree);
 
     }

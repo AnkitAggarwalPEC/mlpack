@@ -44,7 +44,7 @@ namespace KCentre{
              */
             double Score(const size_t queryIndex , TreeType & referenceNode);
     
-            double ReScore(const size_t queryIndex , TreeType& referenceNode , const double oldScore);
+            double Rescore(const size_t queryIndex , TreeType& referenceNode , const double oldScore);
 
         private:
             const MatType & dataset;
