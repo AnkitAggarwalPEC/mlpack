@@ -33,7 +33,7 @@ class GonzalezKcentreStatistic{
         {}
         //! Initialize the statistic for the node
         template <typename TreeType>
-        GonzalezKcentreStatistic(TreeType & node):
+        GonzalezKcentreStatistic(TreeType & /*node*/):
             closetCentreDistance(DBL_MAX),
             farthestCentreDistance(DBL_MIN),
             currentClosestCentre(-1),

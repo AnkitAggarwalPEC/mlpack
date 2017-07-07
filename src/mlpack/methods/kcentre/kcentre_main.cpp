@@ -12,6 +12,15 @@ using namespace mlpack;
 using namespace mlpack::KCentre;
 using namespace std;
 
+PROGRAM_INFO("Kcentre" , "Program to run kcentre Algo");
+//Required options
+PARAM_MATRIX_IN_REQ("input" , "Input dataset" , "i");
+PARAM_INT_IN_REQ("centres" , "Inpit number of centres" , "c");
+PARAM_MATRIX_OUT("output" , "Matrix to store output labels" , "o");
+PARAM_INT_IN("max_iterations" , "Maximum number of iterations"  , "m" , 1000);
+PARAM_MATRIX_IN("initial_centres" , "Matrix to specify staring selected centre" , "I");
+PARAM_STRING_IN("algorithm" , "Algrithm to use" , "a", "naive");
+
 int main(int argc , char * argv[]){
     CLI::ParseCommandLine(argc, argv);
     if(!CLI::HasParam("output")){
