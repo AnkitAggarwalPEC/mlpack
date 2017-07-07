@@ -7,7 +7,7 @@
 #include "gonzalez_kcentre_rules.hpp"
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
     template <
             typename MetricType,
             typename TreeType,

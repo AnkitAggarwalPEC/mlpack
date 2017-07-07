@@ -11,7 +11,7 @@
 #include <mlpack/core/math/random.hpp>
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
 
 class SampleInitialization{
     public:

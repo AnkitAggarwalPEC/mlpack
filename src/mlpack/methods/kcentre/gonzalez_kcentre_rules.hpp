@@ -8,7 +8,7 @@
 #define MLPACK_METHODS_KCENTRE_GONZALEZ_KCENTRE_RULES_HPP
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
     /*
      * The rules class for the single tree Gonzalez
      */

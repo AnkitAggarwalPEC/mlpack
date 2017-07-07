@@ -14,7 +14,7 @@
 #include "gonzalez_kcentre.hpp"
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
 
 /**
  * Begining Point of Kcentre
@@ -25,7 +25,7 @@ namespace kcentre{
  */
 template<typename MetricType = metric::EuclideanDistance,
          typename InitialPartitionPolicy = SampleInitialization,
-         template <class , class> class solver = GonzalezKcentre, 
+         template <class , class> class Solver = GonzalezKcentre, 
          typename MatType = arma::mat
         >
 class kcentre{

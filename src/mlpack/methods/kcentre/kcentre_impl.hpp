@@ -6,17 +6,17 @@
 #include <mlpack/core/metrics/lmetric.hpp>
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
 
 //constructor definition
 template <typename MetricType,
          typename InitialPartitionPolicy,
-         template <class ,class> class solver,
+         template <class ,class> class Solver,
          typename MatType>
 kcentre<
         MetricType,
         InitialPartitionPolicy,
-        solver,
+        Solver,
         MatType>::
 kcentre(const size_t maxIterations,
         const MetricType metric,
@@ -27,11 +27,11 @@ kcentre(const size_t maxIterations,
     {}
 template <typename MetricType , 
           typename InitialPartitionPolicy,
-          template <class ,class> class solver,
+          template <class ,class> class Solver,
           typename MatType>
 void kcentre<MetricType ,
              InitialPartitionPolicy,
-             solver,
+             Solver,
              MatType>::
              Centres(const MatType & data ,
                      const size_t num_centres ,
@@ -61,18 +61,17 @@ void kcentre<MetricType ,
                  }
                  size_t iterations = 0;
                  //as we have chosen the first centre run the algorithm 1 to k times as after each iteration we choose the another centre and update the centre matrix
-                 for(iterations = 1 ; iterations < num_centres && iteration < maxIterations ; interations++){
+                 for(iterations = 1 ; iterations < num_centres && iterations < maxIterations ; iterations++){
                      //call the main function here
                      //Assume the type object
-                     Object.Iterate(centres , iteration);
+                     Solver<MetricType , MatType>.Iterate(centres , iterations);
                  }
                  if(iterations != num_centres and iterations == maxIterations){
-                    Log << Warn << "Max Number of iteration limit:" <<maxIterations << " reached"<< std::endl;
-                    Centres()
+                     Log :: Warn << "Max Number of iteration limit:" <<maxIterations << " reached"<< std::endl;
                  }
                  else{
                     // algorithm disconnected after running till choosing "k" centres
-                    Log << Warn << "Algorithm reached till the choosing k centre" << std::endl;
+                     Log ::Warn << "Algorithm reached till the choosing k centre" << std::endl;
                     //create the method to print centre somehow
                  }
 

@@ -9,12 +9,12 @@
 #include "kcentre.hpp"
 #include "sample_initialization.hpp"
 using namespace mlpack;
-using namespace mlpack::kcentre;
+using namespace mlpack::KCentre;
 using namespace std;
 
 int main(int argc , char * argv[]){
-    CLI::Parse(argc, argv);
-    if(!CLI::HasParams("output")){
+    CLI::ParseCommandLine(argc, argv);
+    if(!CLI::HasParam("output")){
         Log::Warn << "--output_file is not specified, so no output will be saved" << std::endl;
     }
     //get value for the number of centre
@@ -27,16 +27,6 @@ int main(int argc , char * argv[]){
         Log::Fatal <<"Invalid number of max Interation " << maxIterations << " using default value of 1000" << std::endl; 
     }
 
-    //check for the type of algorithm to run
-    auto algorithm = CLI::GetParam<std::string>("algorithm");
-    if(algorithm == "dualtree"){
-        // run the dual tree algorithm
-        using solver = GonzalezKcentre<metric::EuclideanDistance>; 
-    }
-    else if(algorithm == "naive"){
-        // run the gonzalez algorithm
-        using solver = GonzalezKcentre<metric::EuclideanDistance>;
-    }
     arma::mat dataPoints = std::move(CLI::GetParam<arma::mat>("input"));
     arma::mat centres;
     //check if there is initial centres given 
@@ -45,12 +35,33 @@ int main(int argc , char * argv[]){
         centres = std::move(CLI::GetParam<arma::mat>)("initial_centres");
         Log::Warn << "Initial Centres are specified in the input" << std::endl;
     }
+    //check for the type of algorithm to run
+    auto algorithm = CLI::GetParam<std::string>("algorithm");
     Timer::Start("Run Time");
-    kcentre<metric::EuclideanDistance,
+    if(algorithm == "dualtree"){
+        // run the dual tree algorithm
+        using Solver = GonzalezKcentre<metric::EuclideanDistance , arma::mat>; 
+        
+        kcentre<
+            metric::EuclideanDistance,
             SampleInitialization,
-            solver,
-            arma::mat> kcentre(maxIterations, metric::EuclideanDistance(), SampleInitialization());
-    kcentre.Centres(dataPoints , numCentres, centres , initialCentresGuess);
+            Solver,
+            arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
+
+        kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
+    }
+    else if(algorithm == "naive"){
+        // run the gonzalez algorithm
+        using Solver = GonzalezKcentre<metric::EuclideanDistance , arma::mat>;
+
+        Timer::Start("Run Time");
+        kcentre<metric::EuclideanDistance,
+            SampleInitialization,
+            Solver,
+            arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
+
+        kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
+    }
     Timer::Stop("Run Time");
     
     return 0;

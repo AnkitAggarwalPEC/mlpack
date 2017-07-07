@@ -10,7 +10,7 @@
 #include <mlpack/prereqs.hpp> 
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
 
 class GonzalezKcentreStatistic{
     private:

@@ -9,7 +9,7 @@
 #include "gonzalez_kcentre_statistic.hpp"
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
 /*
  * An implementation of Gonzalez Algorithm for Kcentre
  */
@@ -41,7 +41,7 @@ namespace kcentre{
             //! The tree built on the points
             TreeType * tree;
             //! To store the farthest point index to append in centre matrix 
-            int farthestPoint;
+            int farthestPointIndex;
 
     };
 }

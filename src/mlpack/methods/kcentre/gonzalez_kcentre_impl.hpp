@@ -8,7 +8,7 @@
 #include "gonzalez_kcentre_rules.hpp"
 
 namespace mlpack{
-namespace kcentre{
+namespace KCentre{
     template<typename MetricType , typename MatType>
     GonzalezKcentre<MetricType , MatType>::GonzalezKcentre(
             const MatType & dataset,
@@ -16,8 +16,7 @@ namespace kcentre{
             datasetOrig(dataset),
             metric(metric),
             tree(new TreeType(const_cast<MatType&>(datasetOrig))),
-            farthestPointIndex(0),
-            farthestPointDistance(DBL_MIN)
+            farthestPointIndex(0)
     {}
     
     template<typename MetricType , typename MatType>
@@ -27,11 +26,16 @@ namespace kcentre{
             delete tree;
     }
 
-    typename<typename MetricType , typename MatType>
-    void GonzalezKcentre<MetricType,MatType>::Iterate(MatType& centres , int centreIndex){
+    template<
+            typename MetricType,
+            typename MatType>
+    void GonzalezKcentre<
+                        MetricType,
+                        MatType>::
+    Iterate(MatType& centres){
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
-        RulesType rules(dataset , centres , metric , distances , farthestPoint , farthestPointDistance);
-        typename TreeType::SingleTreeTranverser<RulesType> traverser(rules);
+        RulesType rules(datasetOrig , centres , metric , distances , farthestPointIndex);
+        typename TreeType::template SingleTreeTranverser<RulesType> traverser(rules);
         traverser.Traverse(0 , *tree);
 
     }
