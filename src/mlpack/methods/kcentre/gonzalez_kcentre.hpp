@@ -4,7 +4,6 @@
  */
 #ifndef MLPACK_METHODS_KCENTRE_GONZALEZ_HPP
 #define MLPACK_METHODS_KCENTRE_GONZALEZ_HPP
-//includes here
 #include <mlpack/core/tree/binary_space_tree.hpp>
 #include "gonzalez_kcentre_statistic.hpp"
 

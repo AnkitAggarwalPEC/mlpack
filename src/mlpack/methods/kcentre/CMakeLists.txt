@@ -3,9 +3,12 @@
 set(SOURCES
     sample_initialization.hpp
     gonzalez_kcentre.hpp
+    gonzalez_kcentre_impl.hpp
+    gonzalez_kcentre_rules.hpp
+    gonzalez_kcentre_rules_impl.hpp
+    gonzalez_kcentre_statistic.hpp
     kcentre.hpp
     kcentre_impl.hpp
-    kcentre_main.cpp
 )
 
 # Add directory name to sources.
