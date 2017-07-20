@@ -53,7 +53,7 @@ namespace KCentre{
     Score(const size_t /*queryIndex*/ , TreeType & referenceNode){
         double maxDistancedPointDistance = DBL_MIN;
         //we have reached the node containing points
-        for(int i = 0 ; i < referenceNode.NumPoints() ; ++i){
+        for(size_t i = 0 ; i < referenceNode.NumPoints() ; ++i){
             // Evaluating the distance of each point from the current index and update the stats
             auto distance = metric.Evaluate(centres.col(centreIndex) , dataset.col(referenceNode.Point(i)));
             if(referenceNode.Stat().ClosetCentreDistance() > distance){

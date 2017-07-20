@@ -1,6 +1,7 @@
 # Define the files we need to compile.
 # Anything not in this list will not be compiled into mlpack.
 set(SOURCES
+    kcentre_helper.hpp
     sample_initialization.hpp
     gonzalez_kcentre.hpp
     gonzalez_kcentre_impl.hpp

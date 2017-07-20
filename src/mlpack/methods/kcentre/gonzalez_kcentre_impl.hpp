@@ -6,6 +6,7 @@
 #define MLPACK_METHODS_KCENTRE_GONZALEZ_IMPL_HPP
 #include "gonzalez_kcentre.hpp"
 #include "gonzalez_kcentre_rules.hpp"
+#include "kcentre_helper.hpp"
 
 namespace mlpack{
 namespace KCentre{
@@ -37,8 +38,10 @@ namespace KCentre{
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
         RulesType rules(datasetOrig , centres , metric ,centreIndex , distances , farthestPointIndex);
         typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
+        print_matrix<MatType>(centres);
         traverser.Traverse(0 , *tree);
         centres.col(centreIndex) = datasetOrig.col(farthestPointIndex);
+        print_matrix<MatType>(centres , centreIndex);
     }
 }
 }

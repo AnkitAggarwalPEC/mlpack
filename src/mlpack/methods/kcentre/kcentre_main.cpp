@@ -8,6 +8,7 @@
 #include <mlpack/prereqs.hpp>
 #include <mlpack/core/util/cli.hpp>
 #include "sample_initialization.hpp"
+#include "kcentre_helper.hpp"
 
 PARAM_MATRIX_IN("input" , "Input dataset" , "i");
 PARAM_INT_IN("centres" , "Inpit number of centres" , "c" , 0);
@@ -38,6 +39,7 @@ int main(int argc , char * argv[]){
 
     arma::mat dataPoints = std::move(CLI::GetParam<arma::mat>("input"));
     arma::mat centres;
+    print_matrix<arma::mat>(dataPoints);
     //check if there is initial centres given 
     auto initialCentresGuess = CLI::HasParam("initial_centres");
     if(initialCentresGuess){
