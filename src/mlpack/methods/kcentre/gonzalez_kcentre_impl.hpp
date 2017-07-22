@@ -16,7 +16,7 @@ namespace KCentre{
             MetricType& metric):
             datasetOrig(dataset),
             metric(metric),
-            tree(new TreeType(const_cast<MatType&>(datasetOrig))),
+            tree(new TreeType(const_cast<MatType&>(datasetOrig), 1)),
             farthestPointIndex(0)
     {}
     

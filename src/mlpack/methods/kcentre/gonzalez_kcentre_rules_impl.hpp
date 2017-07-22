@@ -5,6 +5,7 @@
 #ifndef MLPACK_METHODS_KCENTRE_GONZALEZ_KCENTRE_RULES_IMPL_HPP
 #define MLPACK_METHODS_KCENTRE_GONZALEZ_KCENTRE_RULES_IMPL_HPP
 #include "gonzalez_kcentre_rules.hpp"
+#include "kcentre_helper.hpp"
 
 namespace mlpack{
 namespace KCentre{
@@ -37,6 +38,7 @@ namespace KCentre{
     double GonzalezKcentreRules<MetricType,
                         TreeType,
                         MatType> :: BaseCase(const size_t /*queryIndex*/ , const size_t /*referenceIndex*/ ){
+                            std::cout <<"Base case is running"<< std::endl;
         return 0.0;
     }
 
@@ -52,10 +54,14 @@ namespace KCentre{
                                 MatType> ::
     Score(const size_t /*queryIndex*/ , TreeType & referenceNode){
         double maxDistancedPointDistance = DBL_MIN;
+        std::cout << "Number of point in this is=" << referenceNode.NumPoints() << std::endl;
         //we have reached the node containing points
         for(size_t i = 0 ; i < referenceNode.NumPoints() ; ++i){
             // Evaluating the distance of each point from the current index and update the stats
             auto distance = metric.Evaluate(centres.col(centreIndex) , dataset.col(referenceNode.Point(i)));
+            std::cout << "Centre Index=" << centreIndex << " and distance=" << distance << std::endl;
+            print_matrix<arma::mat>(centres , centreIndex);
+            print_matrix<arma::mat>(dataset, referenceNode.Point(i));
             if(referenceNode.Stat().ClosetCentreDistance() > distance){
                 referenceNode.Stat().CurrentClosestCentre() = i;
                 referenceNode.Stat().ClosetCentreDistance() = distance;

@@ -65,7 +65,7 @@ void kcentre<MetricType ,
                  for(iterations = 1 ; iterations < num_centres && iterations < maxIterations ; iterations++){
                      //call the main function here
                      //Assume the type object
-                     solver_obj.Iterate(centres , iterations);
+                     solver_obj.Iterate(centres , iterations - 1);
                  }
                  if(iterations != num_centres and iterations == maxIterations){
                      Log :: Warn << "Max Number of iteration limit:" <<maxIterations << " reached"<< std::endl;
