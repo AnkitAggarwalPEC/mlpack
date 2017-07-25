@@ -64,25 +64,30 @@ namespace KCentre{
             print_matrix<arma::mat>(centres , centreIndex);
             print_matrix<arma::mat>(dataset, referenceNode.Point(i));
             if(referenceNode.Stat().IsThisCentre()){
+                std::cout << "This is centre " << std::endl;
                 continue;
             }
             if(std::fabs(distance - 0) <= elipson * std::fmax(std::fabs(distance), std::fabs(0))){
                 //! Distance between the reference point and choosen centre is very less
                 referenceNode.Stat().IsThisCentre() = true;
+                std::cout << "This is very close to centre" << std::endl;
                 continue;
             } 
             if(referenceNode.Stat().ClosetCentreDistance() > distance){
                 referenceNode.Stat().CurrentClosestCentre() = i;
                 referenceNode.Stat().ClosetCentreDistance() = distance;
+                std::cout << "Closet Centre Distance=" << distance << " index=" << i << std::endl;
             }
-            else if(referenceNode.Stat().FarthestCentreDistance() < distance){
+            if(referenceNode.Stat().FarthestCentreDistance() < distance){
                 referenceNode.Stat().CurrentFarthestCentre() = i;
                 referenceNode.Stat().FarthestCentreDistance() = distance;
+                std::cout << "Farthest Centre Distance=" << distance << " index=" << i << std::endl;
             }
-            if(referenceNode.Stat().ClosetCentreDistance() > maxDistancedPointDistance){
-                maxDistancedPointDistance = referenceNode.Stat().ClosetCentreDistance();
+            if(referenceNode.Stat().FarthestCentreDistance() > maxDistancedPointDistance){
+                maxDistancedPointDistance = referenceNode.Stat().FarthestCentreDistance();
                 farthestPointIndex = referenceNode.Point(i);
-                nodePtr = &referenceNode;     
+                nodePtr = &referenceNode;    
+                std::cout << "Pointer updated " << std::endl;
             }
         }
         return 0.0;

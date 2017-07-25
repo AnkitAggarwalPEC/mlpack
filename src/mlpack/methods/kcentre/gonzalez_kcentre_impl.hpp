@@ -42,6 +42,7 @@ namespace KCentre{
         print_matrix<MatType>(centres);
         traverser.Traverse(0 , *tree);
         centres.col(centreIndex) = datasetOrig.col(farthestPointIndex);
+        std::cout << "Farthest Point Index=" << farthestPointIndex << std::endl;
         farthestCentrePointPtr->Stat().IsThisCentre() = true;
         print_matrix<MatType>(centres , centreIndex);
     }
