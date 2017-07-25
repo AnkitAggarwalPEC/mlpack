@@ -21,13 +21,11 @@ namespace KCentre{
                         MatType & centres,
                         MetricType & metric,
                         int centreIndex,
-                        MetricType  & distances,
                         int &farthestPointIndex):
         dataset(dataset),
         centres(centres),
         metric(metric),
         centreIndex(centreIndex),
-        distances(distances),
         farthestPointIndex(farthestPointIndex)
     {}
 
@@ -62,6 +60,14 @@ namespace KCentre{
             std::cout << "Centre Index=" << centreIndex << " and distance=" << distance << std::endl;
             print_matrix<arma::mat>(centres , centreIndex);
             print_matrix<arma::mat>(dataset, referenceNode.Point(i));
+            if(referenceNode.Stat().isThisCentre()){
+                continue;
+            }
+            if(std::fabs(distance , 0) <= elipson * std::fmax(std::fabs(distance), std::fabs(0))){
+                //! Distance between the reference point and choosen centre is very less
+                referenceNode.Stat().isThisCentre() = true;
+                continue;
+            } 
             if(referenceNode.Stat().ClosetCentreDistance() > distance){
                 referenceNode.Stat().CurrentClosestCentre() = i;
                 referenceNode.Stat().ClosetCentreDistance() = distance;

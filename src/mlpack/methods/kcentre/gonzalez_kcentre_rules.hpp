@@ -26,7 +26,6 @@ namespace KCentre{
                                  MatType & centres,
                                  MetricType& metric,
                                  int centreIndex,
-                                 MetricType & distances,
                                  int& farthestPointIndex
                                 );
             
@@ -51,8 +50,8 @@ namespace KCentre{
             MatType & centres;
             MetricType & metric;
             int centreIndex;
-            MetricType & distances;
             int farthestPointIndex ;
+            const double elipson = 1e-5;
             
     };
 }

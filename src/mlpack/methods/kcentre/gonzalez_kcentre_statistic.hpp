@@ -22,6 +22,8 @@ class GonzalezKcentreStatistic{
         int currentClosestCentre;
         //! Current Farthest Centre
         int currentFarthestCentre;
+        //! To cache whether it is already chosen centre
+        bool isThisCentre;
     public:
         
         //! Empty Constructor
@@ -29,7 +31,8 @@ class GonzalezKcentreStatistic{
             closetCentreDistance(DBL_MAX),
             farthestCentreDistance(DBL_MIN),
             currentClosestCentre(-1),
-            currentFarthestCentre(-1)
+            currentFarthestCentre(-1),
+            isThisCentre(false)
         {}
         //! Initialize the statistic for the node
         template <typename TreeType>
@@ -37,7 +40,8 @@ class GonzalezKcentreStatistic{
             closetCentreDistance(DBL_MAX),
             farthestCentreDistance(DBL_MIN),
             currentClosestCentre(-1),
-            currentFarthestCentre(-1)
+            currentFarthestCentre(-1),
+            isThisCentre(false)
         {}
         
         //setter and getter for the member variable
@@ -54,6 +58,9 @@ class GonzalezKcentreStatistic{
         }
         int & CurrentFarthestCentre(){
             return currentFarthestCentre;
+        }
+        bool & IsThisCentre(){
+            return isThisCentre;
         }
 };
 }
