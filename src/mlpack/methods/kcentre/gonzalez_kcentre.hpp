@@ -39,6 +39,8 @@ namespace KCentre{
             TreeType * tree;
             //! To store the farthest point index to append in centre matrix 
             int farthestPointIndex;
+            //! To store the currently selected node in tree
+            TreeType * farthestCentrePointPtr = nullptr;
 
     };
 }

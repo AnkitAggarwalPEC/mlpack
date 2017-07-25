@@ -36,7 +36,7 @@ namespace KCentre{
     Iterate(MatType& centres  , size_t centreIndex){
         //! TreeType defined in .hpp
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
-        TreeType * farthestCentrePointPtr = nullptr;
+        farthestCentrePointPtr = nullptr;
         RulesType rules(datasetOrig , centres , metric ,centreIndex - 1 , farthestPointIndex , farthestCentrePointPtr);
         typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
         print_matrix<MatType>(centres);
