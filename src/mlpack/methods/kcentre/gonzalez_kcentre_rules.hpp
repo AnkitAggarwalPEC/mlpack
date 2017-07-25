@@ -51,9 +51,10 @@ namespace KCentre{
             MatType & centres;
             MetricType & metric;
             int centreIndex;
-            int farthestPointIndex ;
+            int & farthestPointIndex ;
             const double elipson = 1e-5;
             TreeType * nodePtr = nullptr;
+            double  maxDistancedPointDistance = DBL_MIN;
             
     };
 }

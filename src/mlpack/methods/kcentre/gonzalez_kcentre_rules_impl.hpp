@@ -54,7 +54,7 @@ namespace KCentre{
                                 TreeType,
                                 MatType> ::
     Score(const size_t /*queryIndex*/ , TreeType & referenceNode){
-        double maxDistancedPointDistance = DBL_MIN;
+        //double maxDistancedPointDistance = DBL_MIN;
         std::cout << "Number of point in this is=" << referenceNode.NumPoints() << std::endl;
         //we have reached the node containing points
         for(size_t i = 0 ; i < referenceNode.NumPoints() ; ++i){
@@ -72,22 +72,26 @@ namespace KCentre{
                 referenceNode.Stat().IsThisCentre() = true;
                 std::cout << "This is very close to centre" << std::endl;
                 continue;
-            } 
-            if(referenceNode.Stat().ClosetCentreDistance() > distance){
-                referenceNode.Stat().CurrentClosestCentre() = i;
-                referenceNode.Stat().ClosetCentreDistance() = distance;
-                std::cout << "Closet Centre Distance=" << distance << " index=" << i << std::endl;
             }
+            //Update the distance of closest centre to this
+            if(referenceNode.Stat().ClosetCentreDistance() > distance){
+                referenceNode.Stat().ClosetCentreDistance()  = distance;
+                referenceNode.Stat().CurrentClosestCentre() = i;
+                std::cout <<"Closet Centre distance=" << distance << " index=" << i << std::endl;
+            }
+            //Update the distance of the farthest centre to this
             if(referenceNode.Stat().FarthestCentreDistance() < distance){
-                referenceNode.Stat().CurrentFarthestCentre() = i;
+                referenceNode.Stat().FarthestCentreDistance() = i;
                 referenceNode.Stat().FarthestCentreDistance() = distance;
                 std::cout << "Farthest Centre Distance=" << distance << " index=" << i << std::endl;
             }
-            if(referenceNode.Stat().FarthestCentreDistance() > maxDistancedPointDistance){
-                maxDistancedPointDistance = referenceNode.Stat().FarthestCentreDistance();
+            if(distance > maxDistancedPointDistance){
+                maxDistancedPointDistance = distance;
                 farthestPointIndex = referenceNode.Point(i);
                 nodePtr = &referenceNode;    
-                std::cout << "Pointer updated " << std::endl;
+                std::cout << "Max Distance Point Index=" << farthestPointIndex << std::endl;
+                print_matrix<arma::mat>(dataset, referenceNode.Point(i));
+
             }
         }
         return 0.0;
