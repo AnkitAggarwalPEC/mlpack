@@ -21,12 +21,15 @@ namespace KCentre{
                         MatType & centres,
                         MetricType & metric,
                         int centreIndex,
-                        int &farthestPointIndex):
+                        int &farthestPointIndex,
+                        TreeType * nodePtr
+                        ):
         dataset(dataset),
         centres(centres),
         metric(metric),
         centreIndex(centreIndex),
-        farthestPointIndex(farthestPointIndex)
+        farthestPointIndex(farthestPointIndex),
+        nodePtr(nodePtr)
     {}
 
     template <
