@@ -29,7 +29,7 @@ class GonzalezKcentreStatistic{
         //! Empty Constructor
         GonzalezKcentreStatistic():
             closetCentreDistance(DBL_MAX),
-            farthestCentreDistance(DBL_MIN),
+            farthestCentreDistance(DBL_MAX),
             currentClosestCentre(-1),
             currentFarthestCentre(-1),
             isThisCentre(false)
@@ -38,7 +38,7 @@ class GonzalezKcentreStatistic{
         template <typename TreeType>
         GonzalezKcentreStatistic(TreeType & /*node*/):
             closetCentreDistance(DBL_MAX),
-            farthestCentreDistance(DBL_MIN),
+            farthestCentreDistance(DBL_MAX),
             currentClosestCentre(-1),
             currentFarthestCentre(-1),
             isThisCentre(false)
