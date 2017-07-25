@@ -82,6 +82,7 @@ namespace KCentre{
             if(referenceNode.Stat().ClosetCentreDistance() > maxDistancedPointDistance){
                 maxDistancedPointDistance = referenceNode.Stat().ClosetCentreDistance();
                 farthestPointIndex = referenceNode.Point(i);
+                nodePtr = &referenceNode;     
             }
         }
         return 0.0;
