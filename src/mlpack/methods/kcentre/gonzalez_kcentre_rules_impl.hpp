@@ -60,12 +60,12 @@ namespace KCentre{
             std::cout << "Centre Index=" << centreIndex << " and distance=" << distance << std::endl;
             print_matrix<arma::mat>(centres , centreIndex);
             print_matrix<arma::mat>(dataset, referenceNode.Point(i));
-            if(referenceNode.Stat().isThisCentre()){
+            if(referenceNode.Stat().IsThisCentre()){
                 continue;
             }
-            if(std::fabs(distance , 0) <= elipson * std::fmax(std::fabs(distance), std::fabs(0))){
+            if(std::fabs(distance - 0) <= elipson * std::fmax(std::fabs(distance), std::fabs(0))){
                 //! Distance between the reference point and choosen centre is very less
-                referenceNode.Stat().isThisCentre() = true;
+                referenceNode.Stat().IsThisCentre() = true;
                 continue;
             } 
             if(referenceNode.Stat().ClosetCentreDistance() > distance){
