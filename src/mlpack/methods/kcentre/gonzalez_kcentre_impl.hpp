@@ -37,17 +37,11 @@ namespace KCentre{
         //! TreeType defined in .hpp
         typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
         farthestCentrePointPtr = nullptr;
-        RulesType rules(datasetOrig , centres , metric ,centreIndex - 1 , farthestPointIndex , farthestCentrePointPtr);
+        RulesType rules(datasetOrig , centres , metric ,centreIndex - 1 , farthestPointIndex , &farthestCentrePointPtr);
         typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
-        print_matrix<MatType>(centres);
         traverser.Traverse(0 , *tree);
-
         centres.col(centreIndex) = datasetOrig.col(farthestPointIndex);
-        std::cout << "Farthest Point Index=" << farthestPointIndex << std::endl;
-        if(farthestCentrePointPtr != nullptr)
-            farthestCentrePointPtr->Stat().IsThisCentre() = true;
-
-        print_matrix<MatType>(centres , centreIndex);
+        farthestCentrePointPtr->Stat().IsThisCentre() = true;
     }
 }
 }

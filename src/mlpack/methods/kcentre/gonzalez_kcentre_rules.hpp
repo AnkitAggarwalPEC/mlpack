@@ -27,7 +27,7 @@ namespace KCentre{
                                  MetricType& metric,
                                  int centreIndex,
                                  int& farthestPointIndex,
-                                 TreeType * nodePtr
+                                 TreeType ** nodePtr
                                 );
             
             /*
@@ -53,7 +53,7 @@ namespace KCentre{
             int centreIndex;
             int & farthestPointIndex ;
             const double elipson = 1e-5;
-            TreeType* &nodePtr = nullptr;
+            TreeType ** nodePtr = nullptr;
             double  maxDistancedPointDistance = DBL_MIN;
             
     };

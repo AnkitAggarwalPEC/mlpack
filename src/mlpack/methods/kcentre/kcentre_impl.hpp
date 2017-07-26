@@ -67,6 +67,8 @@ void kcentre<MetricType ,
                      //Assume the type object
                      solver_obj.Iterate(centres , iterations );
                  }
+                 Log::Warn << "Choosen centres are " << std::endl;
+                 print_matrix<arma::mat> (centres);
                  if(iterations != num_centres and iterations == maxIterations){
                      Log :: Warn << "Max Number of iteration limit:" <<maxIterations << " reached"<< std::endl;
                  }

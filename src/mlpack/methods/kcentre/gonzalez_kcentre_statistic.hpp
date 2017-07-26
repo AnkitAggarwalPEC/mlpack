@@ -14,53 +14,37 @@ namespace KCentre{
 
 class GonzalezKcentreStatistic{
     private:
-        //! Upper bound on the distance to the nearest neighbour of any points in this node
-        double closetCentreDistance;
-        //! Lower bound on the distanc to the nearest neighbour of any points in this node
-        double farthestCentreDistance;
-        //! Current Closest Centre         
-        int currentClosestCentre;
-        //! Current Farthest Centre
-        int currentFarthestCentre;
         //! To cache whether it is already chosen centre
         bool isThisCentre;
+        //! To store the distance from centre
+        double distance;
+        //! To store the centre index in dataset for this node
+        int index;
     public:
         
         //! Empty Constructor
         GonzalezKcentreStatistic():
-            closetCentreDistance(DBL_MAX),
-            farthestCentreDistance(DBL_MIN),
-            currentClosestCentre(-1),
-            currentFarthestCentre(-1),
-            isThisCentre(false)
+            isThisCentre(false),
+            distance(DBL_MAX),
+            index(-1)
         {}
         //! Initialize the statistic for the node
         template <typename TreeType>
         GonzalezKcentreStatistic(TreeType & /*node*/):
-            closetCentreDistance(DBL_MAX),
-            farthestCentreDistance(DBL_MIN),
-            currentClosestCentre(-1),
-            currentFarthestCentre(-1),
-            isThisCentre(false)
+            isThisCentre(false),
+            distance(DBL_MAX),
+            index(-1)
         {}
         
         //setter and getter for the member variable
-
-        double & ClosetCentreDistance(){
-            return closetCentreDistance;
-        }
-        
-        double & FarthestCentreDistance(){
-            return farthestCentreDistance;
-        }
-        int & CurrentClosestCentre(){
-            return currentClosestCentre;
-        }
-        int & CurrentFarthestCentre(){
-            return currentFarthestCentre;
-        }
         bool & IsThisCentre(){
             return isThisCentre;
+        }
+        double & Distance(){
+            return distance;
+        }
+        int & Centre(){
+           return index; 
         }
 };
 }
