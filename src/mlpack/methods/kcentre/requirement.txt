@@ -1,3 +1,28 @@
 #sample_initialization part
 https://scicomp.stackexchange.com/questions/19016/gonzalez-algorithm
 https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository
+http://www.cc.gatech.edu/~pram/pubs/rp494b-march.pdf
+
+Algo
+
+func(nodeQ , nodeR)
+
+If nodeQ.parent == nodeR.parent:
+    return
+else if dis(nodeQ , nodeR) > dis(nodeQ):
+    return 
+else if nodeQ == nodeR == leaves:
+    for all the children in nodeQ (q)and nodeR(r):
+        if dis(q , r) < dis(Cq) then
+            dis(Cq) = dis(q, r)
+        end if
+    end for
+    dis(nodeQ) = max dis(Cq)
+else
+    func(nodeQ.left , nodeR.right)
+    func(nodeQ.left , nodeR.left)
+    func(nodeQ.right , nodeR.left)
+    func(nodeQ.right , nodeR.right)
+    dis(Q) =  max(dis(nodeQ.left) , dis(nodeQ.right))
+end
+
