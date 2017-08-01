@@ -34,10 +34,10 @@ DecisionTree<FitnessFunction,
                                         const size_t numClasses,
                                         const size_t minimumLeafSize)
 {
-  // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
 
+  // Copy or move data.
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
 
@@ -65,9 +65,10 @@ DecisionTree<FitnessFunction,
                                         const size_t numClasses,
                                         const size_t minimumLeafSize)
 {
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
+
   // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
 
@@ -101,11 +102,11 @@ DecisionTree<FitnessFunction,
                                             typename std::remove_reference<
                                             WeightsType>::type>::value>*)
 {
-  // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
-  typedef typename std::remove_reference<WeightsType>::type TrueWeightsType;
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
+  using TrueWeightsType = typename std::decay<WeightsType>::type;
 
+  // Copy or move data.
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
   TrueWeightsType tmpWeights(std::forward<WeightsType>(weights));
@@ -138,11 +139,11 @@ DecisionTree<FitnessFunction,
                                             typename std::remove_reference<
                                             WeightsType>::type>::value>*)
 {
-  // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
-  typedef typename std::remove_reference<WeightsType>::type TrueWeightsType;
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
+  using TrueWeightsType = typename std::decay<WeightsType>::type;
 
+  // Copy or move data.
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
   TrueWeightsType tmpWeights(std::forward<WeightsType>(weights));
@@ -349,17 +350,17 @@ void DecisionTree<FitnessFunction,
     throw std::invalid_argument(oss.str());
   }
 
-  // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
 
+  // Copy or move data.
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
 
   // Pass off work to the Train() method.
   arma::rowvec weights; // Fake weights, not used.
   Train<false>(tmpData, 0, tmpData.n_cols, datasetInfo, tmpLabels, numClasses,
-      minimumLeafSize);
+      weights, minimumLeafSize);
 }
 
 //! Train on the given data, assuming all dimensions are numeric.
@@ -390,10 +391,10 @@ void DecisionTree<FitnessFunction,
     throw std::invalid_argument(oss.str());
   }
 
-  // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
 
+  // Copy or move data.
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
 
@@ -436,11 +437,11 @@ void DecisionTree<FitnessFunction,
     throw std::invalid_argument(oss.str());
   }
 
-  // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
-  typedef typename std::remove_reference<WeightsType>::type TrueWeightsType;
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
+  using TrueWeightsType = typename std::decay<WeightsType>::type;
 
+  // Copy or move data.
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
   TrueWeightsType tmpWeights(std::forward<WeightsType>(weights));
@@ -482,11 +483,11 @@ void DecisionTree<FitnessFunction,
     throw std::invalid_argument(oss.str());
   }
 
-  // Copy or move data.
-  typedef typename std::remove_reference<MatType>::type TrueMatType;
-  typedef typename std::remove_reference<LabelsType>::type TrueLabelsType;
-  typedef typename std::remove_reference<WeightsType>::type TrueWeightsType;
+  using TrueMatType = typename std::decay<MatType>::type;
+  using TrueLabelsType = typename std::decay<LabelsType>::type;
+  using TrueWeightsType = typename std::decay<WeightsType>::type;
 
+  // Copy or move data.
   TrueMatType tmpData(std::forward<MatType>(data));
   TrueLabelsType tmpLabels(std::forward<LabelsType>(labels));
   TrueWeightsType tmpWeights(std::forward<WeightsType>(weights));
@@ -983,6 +984,28 @@ size_t DecisionTree<FitnessFunction,
         classProbabilities, *this);
 }
 
+// Get the number of classes in the tree.
+template<typename FitnessFunction,
+         template<typename> class NumericSplitType,
+         template<typename> class CategoricalSplitType,
+         typename DimensionSelectionType,
+         typename ElemType,
+         bool NoRecursion>
+size_t DecisionTree<FitnessFunction,
+                    NumericSplitType,
+                    CategoricalSplitType,
+                    DimensionSelectionType,
+                    ElemType,
+                    NoRecursion>::NumClasses() const
+{
+  // Recurse to the nearest child and return the number of elements in the
+  // probability vector.
+  if (children.size() == 0)
+    return classProbabilities.n_elem;
+  else
+    return children[0]->NumClasses();
+}
+
 template<typename FitnessFunction,
          template<typename> class NumericSplitType,
          template<typename> class CategoricalSplitType,
@@ -1017,7 +1040,7 @@ void DecisionTree<FitnessFunction,
 
   // Now normalize into probabilities.
   classProbabilities /= UseWeights ? sumWeights : labels.n_elem;
-  arma::uword maxIndex;
+  arma::uword maxIndex = 0;
   classProbabilities.max(maxIndex);
   dimensionTypeOrMajorityClass = (size_t) maxIndex;
 }

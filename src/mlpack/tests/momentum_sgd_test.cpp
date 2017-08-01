@@ -11,6 +11,7 @@
  */
 #include <mlpack/core.hpp>
 #include <mlpack/core/optimizers/sgd/sgd.hpp>
+#include <mlpack/core/optimizers/sgd/update_policies/gradient_clipping.hpp>
 #include <mlpack/core/optimizers/sgd/update_policies/momentum_update.hpp>
 #include <mlpack/core/optimizers/lbfgs/test_functions.hpp>
 #include <mlpack/core/optimizers/sgd/test_function.hpp>
@@ -30,11 +31,10 @@ BOOST_AUTO_TEST_CASE(MomentumSGDSpeedUpTestFunction)
 {
   SGDTestFunction f;
   MomentumUpdate momentumUpdate(0.7);
-  MomentumSGD<SGDTestFunction> s(
-      f, 0.0003, 2500000, 1e-9, true, momentumUpdate);
+  MomentumSGD s(0.0003, 2500000, 1e-9, true, momentumUpdate);
 
   arma::mat coordinates = f.GetInitialPoint();
-  double result = s.Optimize(coordinates);
+  double result = s.Optimize(f, coordinates);
 
   BOOST_REQUIRE_CLOSE(result, -1.0, 0.05);
   BOOST_REQUIRE_SMALL(coordinates[0], 1e-3);
@@ -43,10 +43,10 @@ BOOST_AUTO_TEST_CASE(MomentumSGDSpeedUpTestFunction)
 
   // Compare with SGD with vanilla update.
   SGDTestFunction f1;
-  StandardSGD<SGDTestFunction> s1(f1, 0.0003, 2500000, 1e-9, true);
+  StandardSGD s1(0.0003, 2500000, 1e-9, true);
 
   arma::mat coordinates1 = f.GetInitialPoint();
-  double result1 = s1.Optimize(coordinates1);
+  double result1 = s1.Optimize(f1, coordinates1);
 
   // Result doesn't converge in 2500000 iterations.
   BOOST_REQUIRE_GT(result1 + 1.0, 0.05);
@@ -65,11 +65,10 @@ BOOST_AUTO_TEST_CASE(GeneralizedRosenbrockTest)
     // Create the generalized Rosenbrock function.
     GeneralizedRosenbrockFunction f(i);
     MomentumUpdate momentumUpdate(0.4);
-    MomentumSGD<GeneralizedRosenbrockFunction> s(
-        f, 0.001, 0, 1e-15, true, momentumUpdate);
+    MomentumSGD s(0.001, 0, 1e-15, true, momentumUpdate);
 
     arma::mat coordinates = f.GetInitialPoint();
-    double result = s.Optimize(coordinates);
+    double result = s.Optimize(f, coordinates);
 
     BOOST_REQUIRE_SMALL(result, 1e-10);
     for (size_t j = 0; j < i; ++j)

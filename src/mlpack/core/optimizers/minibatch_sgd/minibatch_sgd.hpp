@@ -82,7 +82,6 @@ namespace optimization {
  *     be adjusted.
  */
 template<
-    typename DecomposableFunctionType,
     typename UpdatePolicyType = VanillaUpdate,
     typename DecayPolicyType = NoDecay
 >
@@ -96,7 +95,6 @@ class MiniBatchSGDType
    * at hand.  The maximum number of iterations refers to the maximum number of
    * mini-batches that are processed.
    *
-   * @param function Function to be optimized (minimized).
    * @param batchSize Size of each mini-batch.
    * @param stepSize Step size for each iteration.
    * @param maxIterations Maximum number of iterations allowed (0 means no
@@ -107,44 +105,33 @@ class MiniBatchSGDType
    * @param updatePolicy Instantiated update policy used to adjust the given
    *     parameters.
    * @param decayPolicy Instantiated decay policy used to adjust the step size.
+   * @param resetPolicy Flag that determines whether update policy parameters
+   *                    are reset before every Optimize call.
    */
-  MiniBatchSGDType(DecomposableFunctionType& function,
-                   const size_t batchSize = 1000,
+  MiniBatchSGDType(const size_t batchSize = 1000,
                    const double stepSize = 0.01,
                    const size_t maxIterations = 100000,
                    const double tolerance = 1e-5,
                    const bool shuffle = true,
                    const UpdatePolicyType& updatePolicy = UpdatePolicyType(),
-                   const DecayPolicyType& decayPolicy = DecayPolicyType());
+                   const DecayPolicyType& decayPolicy = DecayPolicyType(),
+                   const bool resetPolicy = true);
 
   /**
    * Optimize the given function using mini-batch SGD.  The given starting point
    * will be modified to store the finishing point of the algorithm, and the
    * final objective value is returned.
    *
+   * @tparam DecomposableFunctionType Type of the function to be optimized.
    * @param function Function to optimize.
    * @param iterate Starting point (will be modified).
+   * @param resetPolicy Flag indicating whether update policy
+   *                   should be reset before running optimization.
    * @return Objective value of the final point.
    */
-  double Optimize(DecomposableFunctionType& function, arma::mat& iterate);
-
-  /**
-   * Optimize the given function using mini-batch SGD.  The given starting point
-   * will be modified to store the finishing point of the algorithm, and the
-   * final objective value is returned.
-   *
-   * @param iterate Starting point (will be modified).
-   * @return Objective value of the final point.
-   */
-  double Optimize(arma::mat& iterate)
-  {
-    return Optimize(this->function, iterate);
-  }
-
-  //! Get the instantiated function to be optimized.
-  const DecomposableFunctionType& Function() const { return function; }
-  //! Modify the instantiated function.
-  DecomposableFunctionType& Function() { return function; }
+  template<typename DecomposableFunctionType>
+  double Optimize(DecomposableFunctionType& function,
+                  arma::mat& iterate);
 
   //! Get the batch size.
   size_t BatchSize() const { return batchSize; }
@@ -171,6 +158,13 @@ class MiniBatchSGDType
   //! Modify whether or not the individual functions are shuffled.
   bool& Shuffle() { return shuffle; }
 
+  //! Get whether or not the update policy parameters
+  //! are reset before Optimize call.
+  bool ResetPolicy() const { return resetPolicy; }
+  //! Modify whether or not the update policy parameters
+  //! are reset before Optimize call.
+  bool& ResetPolicy() { return resetPolicy; }
+
   //! Get the update policy.
   UpdatePolicyType UpdatePolicy() const { return updatePolicy; }
   //! Modify the update policy.
@@ -182,9 +176,6 @@ class MiniBatchSGDType
   DecayPolicyType& DecayPolicy() { return decayPolicy; }
 
  private:
-  //! The instantiated function.
-  DecomposableFunctionType& function;
-
   //! The size of each mini-batch.
   size_t batchSize;
 
@@ -206,11 +197,13 @@ class MiniBatchSGDType
 
   //! The decay policy used to update the parameters in each iteration.
   DecayPolicyType decayPolicy;
+
+  //! Flag that determines whether update policy parameters
+  //! are reset before every Optimize call.
+  bool resetPolicy;
 };
 
-template<typename DecomposableFunctionType>
-using MiniBatchSGD = MiniBatchSGDType<
-    DecomposableFunctionType, VanillaUpdate, NoDecay>;
+using MiniBatchSGD = MiniBatchSGDType<VanillaUpdate, NoDecay>;
 
 } // namespace optimization
 } // namespace mlpack
