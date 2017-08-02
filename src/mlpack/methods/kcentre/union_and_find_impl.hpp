@@ -45,7 +45,7 @@ void UF::Merge(const size_t x , const size_t y){
         size[j] += size[i];
     }else{
         parent[j] = i;
-        size[i]  +=  size[j];
+        size[i] += size[j];
     }
     count-- ;
 }
