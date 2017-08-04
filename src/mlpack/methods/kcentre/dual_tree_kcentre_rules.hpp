@@ -8,18 +8,38 @@
 
 #include <mlpack/prereqs.hpp>
 #include <mlpack/core/tree/traversal_info.hpp>
+#include "union_and_find.hpp"
 
 namespace mlpack{
 namespace KCentre{
     template <typename MetricType , typename TreeType , typename MatType = arma::mat>
     class DualTreeKcentreRules{
         public:
+            /*
+             * Constructor for the Rules Object
+             */
+            DualTreeKcentreRules(const MatType & dataset,
+                                 MetricType & metric,
+                                 UF & connections,
+                                 arma::vec& distances
+                                 );
+            
             double BaseCase(const size_t queryIndex , const size_t referenceIndex);
             double Score(const size_t queryIndex , TreeType & referenceIndex);
             double Score(TreeType & queryNode , TreeType & referenceNode);
             double Rescore(const size_t queryIndex , TreeType& referenceNode , const double oldScore);
             double Rescore(TreeType &  queryNode , TreeType& referenceNode , const double oldScore);
-
+        private:
+            //! The data points
+            MatType& dataset;
+            //! To store the relation of current centres and points
+            UF & connections;
+            //! To store the current state of the distances
+            arma::vec& distances;
+            //! To store the metric object
+            MetricType& metric;
+            //! Update the bound info for the given query node
+            double CalculateBound(TreeType & qeuryNode) const;
     };
 }
 }
