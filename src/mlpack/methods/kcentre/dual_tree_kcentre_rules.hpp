@@ -40,6 +40,7 @@ namespace KCentre{
             MetricType& metric;
             //! Update the bound info for the given query node
             double CalculateBound(TreeType & qeuryNode) const;
+            //! Need a mechanism for the storing of the last chosen centre
     };
 }
 }

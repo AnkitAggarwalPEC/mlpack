@@ -20,7 +20,10 @@ namespace KCentre{
         //! Lower bound on the distance to the centre of any points in this node
         double minCentreDistance;
         //! Centre Index of the all the points in this node belong to
-        int centreIndex
+        int centreIndex;
+        //! To store the bound for this Node
+        double bound;
+
     public:
         DualTreeKcentreStats():
             maxCentreDistance(DBL_MAX),
@@ -38,6 +41,7 @@ namespace KCentre{
         double & MaxCentreDistance(){ return maxCentreDistance;}
         double & MinCentreDistance(){ return minCentreDistance;}
         int & CentreIndex(){ return centreIndex;}
+        double & Bound(){return bound;}
 
 
 
