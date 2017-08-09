@@ -23,15 +23,31 @@ namespace KCentre{
          */
         ~DualTreeKcentre();
         /*
+         * Intialize the distance matrix with initial centre
+         */
+        void Initialize(MatType & centres , size_t initial_centre);
+        /*
+         * To run the whole process
+         */
+        void ComputeKCentre(MatType & centres , size_t num_centres , size_t max_iterations);
+        /*
          * Run the single iteration of the Dual Tree Algorithm
          */
-        void Iterate(MatType & centres , size_t centreIndex);
+        void Iterate();
 
         private:
         /*
          * Distance matrix for each point
          */
         arma::vec distance;
+        /*
+         * To store the metric object
+         */
+        MetricType & metric;
+        /*
+         * To store the original dataset
+         */
+        MatType & dataset;
     };
 }
 }

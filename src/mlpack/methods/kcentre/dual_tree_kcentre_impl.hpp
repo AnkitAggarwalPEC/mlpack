@@ -12,15 +12,26 @@ namespace KCentre{
     template <typename MetricType , typename MatType>
     DualTreeKCentre<MetricType , MatType>::
     DualTreeKCentre(const MatType & dataset , MetricType & metric):
-        distance.set_size(dataset.n_cols)
+        distance.set_size(dataset.n_cols),
+        this->metric(metric),
+        this->dataset(dataset)
     {
         //! Set the default distance
         distance.fill(-DBL_MAX);
     }
-
+    
     template <typename MetricType , typename MatType>
     DualTreeKCentre<MetricType , MatType>::
-    Iterate(MatType & centres , size_t centreIndex){
+    Intialize(MatType & centres , size_t initial_centre){
+
+        for (size_t index =  0 ; index < dataset.n_cols ; index++){
+            distance.col(index) = metric.Evaluate(centres.col(initial_centre), dataset.col(index));
+        }
+    }
+    template <typename MetricType , typename MatType>
+    DualTreeKCentre<MetricType , MatType>::
+    void ComputeKCentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
+        Intialize();
     }
     
 }
