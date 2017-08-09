@@ -24,11 +24,7 @@ namespace KCentre{
              */
             GonzalezKcentreRules(const MatType & dataset,
                                  MatType & centres,
-                                 MetricType& metric,
-                                 int centreIndex,
-                                 int& farthestPointIndex,
-                                 TreeType ** nodePtr
-                                );
+                                 MetricType& metric);
             
             /*
              * The BaseCase() function for this single-tree algorithm
@@ -45,13 +41,16 @@ namespace KCentre{
             double Score(const size_t queryIndex , TreeType & referenceNode);
     
             double Rescore(const size_t queryIndex , TreeType& referenceNode , const double oldScore);
-
+            //! To be able to the data members in the rules
+            int & CentreIndex(){ return centreIndex;}
+            int & FarthestPointIndex() { return farthestPointIndex;}
+            void SetFarthestCentrePointer(TreeType ** ptr){ nodePtr = ptr; }
         private:
             const MatType & dataset;
             MatType & centres;
             MetricType & metric;
             int centreIndex;
-            int & farthestPointIndex ;
+            int farthestPointIndex ;
             const double elipson = 1e-5;
             TreeType ** nodePtr = nullptr;
             double  maxDistancedPointDistance = DBL_MIN;

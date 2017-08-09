@@ -23,9 +23,13 @@ namespace KCentre{
              */
             ~GonzalezKcentre();
             /*
+             * To run the whole process
+             */
+            void ComputeKcentre(MatType & centres  , size_t num_centres , size_t max_iteration) ;
+            /*
              * Run the single iteration of Gonzalez Algorithm updating the given centres to new centres
              */
-            void Iterate(MatType& centres , size_t centreIndex);
+            void Iterate();
             /*
              */
         private:
@@ -41,6 +45,8 @@ namespace KCentre{
             int farthestPointIndex;
             //! To store the currently selected node in tree
             TreeType * farthestCentrePointPtr = nullptr;
+            //! Typedef for the rules type object
+            typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
 
     };
 }

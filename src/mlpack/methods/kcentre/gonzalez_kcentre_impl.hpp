@@ -27,21 +27,27 @@ namespace KCentre{
             delete tree;
     }
 
-    template<
-            typename MetricType,
-            typename MatType>
-    void GonzalezKcentre<
-                        MetricType,
-                        MatType>::
-    Iterate(MatType& centres  , size_t centreIndex){
-        //! TreeType defined in .hpp
-        typedef GonzalezKcentreRules<MetricType, TreeType , MatType> RulesType;
-        farthestCentrePointPtr = nullptr;
-        RulesType rules(datasetOrig , centres , metric ,centreIndex - 1 , farthestPointIndex , &farthestCentrePointPtr);
+    template<typename MetricType, typename MatType>
+    void GonzalezKcentre<MetricType,MatType>::
+    ComputeKcentre(MatType & centres , size_t num_centres , size_t max_iteration){
+        size_t iterations = 0;
+        RulesType rules(datasetOrig , centres , metric);
+        for (iterations  = 1 ; iterations < max_iteration && iterations < num_centres ; iterations++ ){
+            farthestCentrePointPtr = nullptr;
+            rules.CentreIndex() = iterations - 1;
+            rules.FarthestPointIndex() = -1;
+            rules.SetFarthestCentrePointer(&farthestCentrePointPtr);
+            Iterate();
+            centres.col(iterations) = datasetOrig.col(rules.FarthestPointIndex());
+            if (farthestCentrePointPtr != nullptr) farthestCentrePointPtr->Stat().IsThisCentre() = true;
+        }
+
+    }
+    template<typename MetricType, typename MatType>
+    void GonzalezKcentre<MetricType,MatType>::
+    Iterate(){
         typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
         traverser.Traverse(0 , *tree);
-        centres.col(centreIndex) = datasetOrig.col(farthestPointIndex);
-        farthestCentrePointPtr->Stat().IsThisCentre() = true;
     }
 }
 }

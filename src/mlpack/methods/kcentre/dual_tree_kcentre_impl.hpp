@@ -10,7 +10,19 @@ namespace KCentre{
 /*An implementation of Dual Tree Kcentre
  */
     template <typename MetricType , typename MatType>
-    DualTreeKCentre()
+    DualTreeKCentre<MetricType , MatType>::
+    DualTreeKCentre(const MatType & dataset , MetricType & metric):
+        distance.set_size(dataset.n_cols)
+    {
+        //! Set the default distance
+        distance.fill(-DBL_MAX);
+    }
+
+    template <typename MetricType , typename MatType>
+    DualTreeKCentre<MetricType , MatType>::
+    Iterate(MatType & centres , size_t centreIndex){
+    }
+    
 }
 }
 #endif

@@ -61,6 +61,9 @@ void kcentre<MetricType ,
                  }
                  size_t iterations = 0;
                  Solver<MetricType ,  MatType> solver_obj(data , metric);
+                 solver_obj.ComputeKcentre(centres , num_centres , max_iterations);
+                 
+                /*
                  //as we have chosen the first centre run the algorithm 1 to k times as after each iteration we choose the another centre and update the centre matrix
                  for(iterations = 1 ; iterations < num_centres && iterations < maxIterations ; iterations++){
                      //call the main function here
@@ -77,6 +80,7 @@ void kcentre<MetricType ,
                      Log ::Warn << "Algorithm reached till the choosing k centre" << std::endl;
                     //create the method to print centre somehow
                  }
+                 */
 
              }
 }

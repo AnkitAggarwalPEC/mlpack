@@ -26,6 +26,12 @@ namespace KCentre{
          * Run the single iteration of the Dual Tree Algorithm
          */
         void Iterate(MatType & centres , size_t centreIndex);
+
+        private:
+        /*
+         * Distance matrix for each point
+         */
+        arma::vec distance;
     };
 }
 }
