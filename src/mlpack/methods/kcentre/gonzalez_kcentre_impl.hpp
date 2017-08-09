@@ -37,7 +37,9 @@ namespace KCentre{
             rules.CentreIndex() = iterations - 1;
             rules.FarthestPointIndex() = -1;
             rules.SetFarthestCentrePointer(&farthestCentrePointPtr);
-            Iterate();
+            typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
+            traverser.Traverse(0 , *tree);
+            //Iterate();
             centres.col(iterations) = datasetOrig.col(rules.FarthestPointIndex());
             if (farthestCentrePointPtr != nullptr) farthestCentrePointPtr->Stat().IsThisCentre() = true;
         }
@@ -46,8 +48,8 @@ namespace KCentre{
     template<typename MetricType, typename MatType>
     void GonzalezKcentre<MetricType,MatType>::
     Iterate(){
-        typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
-        traverser.Traverse(0 , *tree);
+        //typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
+        //traverser.Traverse(0 , *tree);
     }
 }
 }

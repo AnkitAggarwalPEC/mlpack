@@ -59,9 +59,8 @@ void kcentre<MetricType ,
                     //fill the centres matrix with InitialPartitionPolicy
                      InitialPartitionPolicy::Centres(data,num_centres ,centres);
                  }
-                 size_t iterations = 0;
                  Solver<MetricType ,  MatType> solver_obj(data , metric);
-                 solver_obj.ComputeKcentre(centres , num_centres , max_iterations);
+                 solver_obj.ComputeKcentre(centres , num_centres , maxIterations);
                  
                 /*
                  //as we have chosen the first centre run the algorithm 1 to k times as after each iteration we choose the another centre and update the centre matrix

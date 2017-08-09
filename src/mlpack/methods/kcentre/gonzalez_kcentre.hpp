@@ -6,7 +6,7 @@
 #define MLPACK_METHODS_KCENTRE_GONZALEZ_HPP
 #include <mlpack/core/tree/binary_space_tree.hpp>
 #include "gonzalez_kcentre_statistic.hpp"
-
+#include "gonzalez_kcentre_rules.hpp"
 namespace mlpack{
 namespace KCentre{
 /*

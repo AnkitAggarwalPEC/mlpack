@@ -17,9 +17,9 @@ namespace KCentre{
                         dataset(dataset),
                         centres(centres),
                         metric(metric),
+                        centreIndex(0),
                         farthestPointIndex(-1),
                         nodePtr(nullptr)
-                        centreIndex(0)
     {}
 
     template <typename MetricType,typename TreeType,typename MatType>
