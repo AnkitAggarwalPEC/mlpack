@@ -5,7 +5,7 @@
 #ifndef MLPACK_METHODS_DUAL_TREE_KCENTRE_HPP
 #define MLPACK_METHODS_DUAL_TREE_KCENTRE_HPP
 #include <mlpack/core/tree/binary_space_tree.hpp>
-
+#include "dual_tree_kcentre_rules.hpp"
 namespace mlpack{
 namespace KCentre{
 /*
@@ -48,6 +48,16 @@ namespace KCentre{
          * To store the original dataset
          */
         MatType & dataset;
+        typedef tree::KDTree <MetricType , DualTreeKcentreRules , MatType> TreeType;
+        /*
+         * To store the tree
+         */
+        TreeType * tree;
+        /*
+         * Method to build tree
+         */
+        TreeType * BuildTree(MatType && dataset , const typename std::enable_if<!tree::TreeTraits>::RearrangesDataset>::type* = 0);
+
     };
 }
 }

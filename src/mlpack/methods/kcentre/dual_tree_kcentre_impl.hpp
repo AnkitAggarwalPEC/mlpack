@@ -15,11 +15,18 @@ namespace KCentre{
         distance.set_size(dataset.n_cols),
         this->metric(metric),
         this->dataset(dataset)
+        this->tree(BuildTree<MetricType , MetricType>(dataset))
     {
         //! Set the default distance
         distance.fill(-DBL_MAX);
     }
     
+    template <typename MetricType , typename MatType>
+    TreeType * DualTreeKCentre<MetricType , MatType>::
+    BuildTree(MatType && dataset){
+        return new TreeType(std::forward<MatType>(dataset));
+    }
+
     template <typename MetricType , typename MatType>
     DualTreeKCentre<MetricType , MatType>::
     Intialize(MatType & centres , size_t initial_centre){
@@ -28,10 +35,17 @@ namespace KCentre{
             distance.col(index) = metric.Evaluate(centres.col(initial_centre), dataset.col(index));
         }
     }
+
     template <typename MetricType , typename MatType>
     DualTreeKCentre<MetricType , MatType>::
     void ComputeKCentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
         Intialize();
+        for(auto iteration = 1 ; iteration < max_iterations && iteration < num_centres ; iteration++){
+            //! Create a traverser;
+            typename TreeType:: template DualTreeTraverser<RuleType> traverser(rules);
+            traverser.Traverse(*tree , *tree);
+            //! Select the new centre
+        }
     }
     
 }
