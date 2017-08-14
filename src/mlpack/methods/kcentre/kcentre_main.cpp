@@ -10,6 +10,7 @@
 #include "sample_initialization.hpp"
 #include "kcentre_helper.hpp"
 
+
 PARAM_MATRIX_IN("input" , "Input dataset" , "i");
 PARAM_INT_IN("centres" , "Inpit number of centres" , "c" , 0);
 using namespace mlpack;
@@ -50,7 +51,7 @@ int main(int argc , char * argv[]){
     Timer::Start("Run Time");
     if(algorithm == "dualtree"){
         // run the dual tree algorithm
-        kcentre< metric::EuclideanDistance , SampleInitialization, GonzalezKcentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
+        kcentre< metric::EuclideanDistance , SampleInitialization, DualTreeKcentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
         kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
     }
     else if(algorithm == "naive"){

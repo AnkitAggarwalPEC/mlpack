@@ -23,7 +23,7 @@ namespace KCentre{
     
     template <typename MetricType , typename MatType>
     TreeType * DualTreeKCentre<MetricType , MatType>::
-    BuildTree(MatType && dataset){
+    BuildTree(MatType && dataset , const typename std::enable_if<!tree::TreeTraits>::RearrangesDataset>::type* = 0){
         return new TreeType(std::forward<MatType>(dataset));
     }
 
@@ -39,7 +39,7 @@ namespace KCentre{
     template <typename MetricType , typename MatType>
     DualTreeKCentre<MetricType , MatType>::
     void ComputeKCentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
-        Intialize();
+        Intialize(centres , 0 );
         for(auto iteration = 1 ; iteration < max_iterations && iteration < num_centres ; iteration++){
             //! Create a traverser;
             typename TreeType:: template DualTreeTraverser<RuleType> traverser(rules);

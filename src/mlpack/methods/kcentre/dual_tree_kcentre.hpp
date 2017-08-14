@@ -52,6 +52,9 @@ namespace KCentre{
          * To store the original dataset
          */
         MatType & dataset;
+        /*
+         * Typedef for the tree
+         */
         typedef tree::KDTree <MetricType , DualTreeKcentreRules , MatType> TreeType;
         /*
          * To store the tree
@@ -65,3 +68,5 @@ namespace KCentre{
     };
 }
 }
+#include "dual_tree_kcentre_impl.hpp"
+#endif

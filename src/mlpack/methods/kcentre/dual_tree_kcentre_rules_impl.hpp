@@ -99,7 +99,7 @@ namespace KCentre{
         const double worstBound = std::max(worstPointCentreDistance , worstChildCentreDistance);
         const double bestBound = std::min(bestPointCentreDistance , bestChildCentreDistance );
         //! This is implementation of the B2 from the 2015Improving.pdf from mlpack website
-        const double bestAdjustedBound = bestBound +  2* queryNode.FurthestDescendantDistance();
+        const double bestAdjustedBound = (bestBound == DBL_MAX)? DBL_MAX: bestBound +  2* queryNode.FurthestDescendantDistance();
 
         queryNode.Stat().MaxCentreDistance() = worstBound;
         queryNode.Stat().MinCentreDistance() = bestBound;
