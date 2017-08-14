@@ -15,7 +15,7 @@ namespace KCentre{
 */
     template<typename MetricType  = metric::EuclideanDistance , typename MatType = arma::mat>
     class DualTreeKcentre{
-        pubic:
+        public:
         /*
          * Constructor for the DualTreeKcentre
          */

@@ -40,8 +40,8 @@ namespace KCentre{
     }
 
     template <typename MetricType , typename MatType>
-    DualTreeKCentre<MetricType , MatType>::
-    void ComputeKCentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
+    void DualTreeKCentre<MetricType , MatType>::
+    ComputeKCentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
         Intialize(centres , 0 );
         RulesType rule(dataset , metric , distances);
         for(auto iteration = 1 ; iteration < max_iterations && iteration < num_centres ; iteration++){

@@ -22,32 +22,35 @@ namespace KCentre{
     }
     
     template<typename MetricType ,typename TreeType , typename MatType>
-    DualTreeKcentreRules<MetricType , TreeType , MatType>::
+    double DualTreeKcentreRules<MetricType , TreeType , MatType>::
     BaseCase(const size_t queryIndex, const size_t referenceIndex){
         //! Calculate the distance between the query point and the reference point and update the distance matrix if this can be possible centre
+        double newUpperBound = -1.0;
         auto distance = metric.Evalutate(dataset.col(queryIndex), dataset.col(referenceIndex));
         //! Assumption metric(a , b) == metric(b , a)
         //! Update the distance matrix for the query index
         if(this->distances[queryIndex] > distance){
-            distance[queryIndex] = distance;
+            distances[queryIndex] = distance;
         }
         //! Update the distance matrix for the reference index
         if(this->distances[referenceIndex] > distance){
-            distance[referenceIndex] = distance;
+            distances[referenceIndex] = distance;
         }
+        if(distance >  newUpperBound) newUpperBound = distance;
+        return newUpperBound;
     }
      
     template<typename MetricType ,typename TreeType , typename MatType>
     double DualTreeKcentreRules<MetricType , TreeType , MatType>::
     Rescore(const size_t queryIndex , TreeType & /*referenceNode*/ , const double oldScore){
-        return distance[queryIndex] > oldScore ? oldScore:DBL_MAX;
+        return distances[queryIndex] > oldScore ? oldScore:DBL_MAX;
     }
 
     template<typename MetricType ,typename TreeType , typename MatType>
     double DualTreeKcentreRules<MetricType , TreeType , MatType>::
     Rescore(TreeType& queryNode , TreeType & referenceNode , const double oldScore){
         auto bound  = CalculateBound(queryNode);
-        return bound > oldScore > oldScore : DBL_MAX;
+        return bound > oldScore ?oldScore : DBL_MAX;
         
     }
     template<typename MetricType ,typename TreeType , typename MatType>
@@ -65,11 +68,10 @@ namespace KCentre{
         //! Bound constains the distance
         auto bound = CalculateBound(queryNode);
         return bound > distance ? distance : DBL_MAX;
-
     }
 
     template<typename MetricType , typename TreeType , typename MatType>
-    DualTreeKcentreRules<MetricType , TreeType , MatType>::
+    double DualTreeKcentreRules<MetricType , TreeType , MatType>::
     CalculateBound(TreeType & queryNode){
         //! It will be maximum distance of the centre from all the query points in queryNode
         double worstPointCentreDistance = -DBL_MAX;
