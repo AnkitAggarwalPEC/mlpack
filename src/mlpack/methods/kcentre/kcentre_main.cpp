@@ -51,7 +51,7 @@ int main(int argc , char * argv[]){
     Timer::Start("Run Time");
     if(algorithm == "dualtree"){
         // run the dual tree algorithm
-        kcentre< metric::EuclideanDistance , SampleInitialization, DualTreeKcentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
+        kcentre< metric::EuclideanDistance , SampleInitialization, DualTreeKCentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
         kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
     }
     else if(algorithm == "naive"){

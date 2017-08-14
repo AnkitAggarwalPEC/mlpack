@@ -49,7 +49,7 @@ class kcentre{
          * @param num_centres Number of Centres
          * @param centres Matrix for storing the centres
          */
-        void Centres(const MatType& data ,
+        void Centres(MatType& data ,
                      const size_t num_centres,
                      arma::mat& centres,
                      const bool initialGuess = false);

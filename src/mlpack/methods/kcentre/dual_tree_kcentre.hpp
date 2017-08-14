@@ -14,16 +14,16 @@ namespace KCentre{
 * An implementation of dual tree kcentre
 */
     template<typename MetricType  = metric::EuclideanDistance , typename MatType = arma::mat>
-    class DualTreeKcentre{
+    class DualTreeKCentre{
         public:
         /*
          * Constructor for the DualTreeKcentre
          */
-        DualTreeKcentre(const MatType & dataset , MetricType & metric);
+        DualTreeKCentre(MatType & dataset , MetricType & metric);
         /*
          * Destructor for the DualTreeKcentre
          */
-        ~DualTreeKcentre();
+        ~DualTreeKCentre();
         /*
          * Intialize the distance matrix with initial centre
          */
@@ -31,7 +31,7 @@ namespace KCentre{
         /*
          * To run the whole process
          */
-        void ComputeKCentre(MatType & centres , size_t num_centres , size_t max_iterations);
+        void ComputeKcentre(MatType & centres , size_t num_centres , size_t max_iterations);
         /*
          * Run the single iteration of the Dual Tree Algorithm
          */
@@ -45,7 +45,7 @@ namespace KCentre{
         /*
          * Distance matrix for each point
          */
-        arma::vec distance;
+        arma::vec distances;
         /*
          * To store the metric object
          */
@@ -62,10 +62,6 @@ namespace KCentre{
          * To store the tree
          */
         TreeType * tree;
-        /*
-         * Method to build tree
-         */
-        TreeType * BuildTree(MatType && dataset , const typename std::enable_if<!tree::TreeTraits>::RearrangesDataset>::type* = 0);
         /*
          * Typedef for the rules object
          */

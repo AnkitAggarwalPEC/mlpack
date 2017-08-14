@@ -33,7 +33,7 @@ void kcentre<MetricType ,
              InitialPartitionPolicy,
              Solver,
              MatType>::
-             Centres(const MatType & data ,
+             Centres(MatType & data ,
                      const size_t num_centres ,
                      arma::mat & centres,
                      const bool initialGuess ){

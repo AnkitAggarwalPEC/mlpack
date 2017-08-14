@@ -11,7 +11,7 @@ namespace mlpack{
 namespace KCentre{
     template<typename MetricType ,typename TreeType , typename MatType>
     DualTreeKcentreRules<MetricType , TreeType , MatType>::
-    DualTreeKcentreRules(const MatType & dataset ,
+    DualTreeKcentreRules(MatType & dataset ,
                         MetricType & metric ,
                         arma::vec& distances):
                         dataset(dataset),
@@ -26,7 +26,7 @@ namespace KCentre{
     BaseCase(const size_t queryIndex, const size_t referenceIndex){
         //! Calculate the distance between the query point and the reference point and update the distance matrix if this can be possible centre
         double newUpperBound = -1.0;
-        auto distance = metric.Evalutate(dataset.col(queryIndex), dataset.col(referenceIndex));
+        auto distance = metric.Evaluate(dataset.col(queryIndex), dataset.col(referenceIndex));
         //! Assumption metric(a , b) == metric(b , a)
         //! Update the distance matrix for the query index
         if(this->distances[queryIndex] > distance){

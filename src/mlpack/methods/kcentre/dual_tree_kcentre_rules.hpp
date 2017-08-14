@@ -17,7 +17,7 @@ namespace KCentre{
             /*
              * Constructor for the Rules Object
              */
-            DualTreeKcentreRules(const MatType & dataset,
+            DualTreeKcentreRules(MatType & dataset,
                                  MetricType & metric,
                                  arma::vec& distances
                                  );
@@ -27,6 +27,12 @@ namespace KCentre{
             double Score(TreeType & queryNode , TreeType & referenceNode);
             double Rescore(const size_t queryIndex , TreeType& referenceNode , const double oldScore);
             double Rescore(TreeType &  queryNode , TreeType& referenceNode , const double oldScore);
+
+            typedef typename tree::TraversalInfo<TreeType> TraversalInfoType;
+
+            const TraversalInfoType & TraversalInfo() const {return transversalInfo;}
+
+            TraversalInfoType & TraversalInfo() {return transversalInfo;}
         private:
             //! The data points
             MatType& dataset;
@@ -35,8 +41,10 @@ namespace KCentre{
             //! To store the metric object
             MetricType& metric;
             //! Update the bound info for the given query node
-            double CalculateBound(TreeType & qeuryNode) const;
-            //! Need a mechanism for the storing of the last chosen centre
+            double CalculateBound(TreeType & qeuryNode);
+
+            TraversalInfoType transversalInfo; 
+
     };
 }
 }
