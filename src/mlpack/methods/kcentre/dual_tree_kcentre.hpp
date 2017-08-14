@@ -34,6 +34,10 @@ namespace KCentre{
          * Run the single iteration of the Dual Tree Algorithm
          */
         void Iterate();
+        /*
+         * Select new centre
+         */
+        size_t SelectNewCentre();
 
         private:
         /*

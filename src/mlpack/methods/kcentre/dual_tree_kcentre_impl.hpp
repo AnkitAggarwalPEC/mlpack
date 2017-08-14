@@ -45,9 +45,26 @@ namespace KCentre{
             typename TreeType:: template DualTreeTraverser<RuleType> traverser(rules);
             traverser.Traverse(*tree , *tree);
             //! Select the new centre
+            auto new_centre = SelectNewCentre();
+            centres.col(iteration) = dataset.col(new_centre);
         }
     }
-    
+
+    template <typename MetricType , typename MatType>
+    size_t DualTreeKCentre<MetricType , MatType>::
+    SelectNewCentre(){
+        auto max_distance = -DBL_MAX;
+        size_t new_centre = -1;
+        for (size_t index =  0 ; index < dataset.n_cols ; index++){
+            if (distance[index] > max_distance){
+                max_distance = distance[index];
+                new_centre = index;
+            }
+        }
+        return new_centre;
+    }
+
+
 }
 }
 #endif
