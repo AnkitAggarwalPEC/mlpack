@@ -6,12 +6,14 @@
 #define MLPACK_METHODS_DUAL_TREE_KCENTRE_HPP
 #include <mlpack/core/tree/binary_space_tree.hpp>
 #include "dual_tree_kcentre_rules.hpp"
+#include "dual_tree_kcentre_stats.hpp"
+#include <mlpack/core/metrics/lmetric.hpp>
 namespace mlpack{
 namespace KCentre{
 /*
 * An implementation of dual tree kcentre
 */
-    template<typename MetricType , typename MatType = arma::mat>
+    template<typename MetricType  = metric::EuclideanDistance , typename MatType = arma::mat>
     class DualTreeKcentre{
         pubic:
         /*
@@ -55,7 +57,7 @@ namespace KCentre{
         /*
          * Typedef for the tree
          */
-        typedef tree::KDTree <MetricType , DualTreeKcentreRules , MatType> TreeType;
+        typedef tree::KDTree <MetricType ,DualTreeKcentreStats, MatType> TreeType;
         /*
          * To store the tree
          */
@@ -64,6 +66,10 @@ namespace KCentre{
          * Method to build tree
          */
         TreeType * BuildTree(MatType && dataset , const typename std::enable_if<!tree::TreeTraits>::RearrangesDataset>::type* = 0);
+        /*
+         * Typedef for the rules object
+         */
+        typedef DualTreeKcentreRules<MetricType,TreeType,MatType> RulesType; 
 
     };
 }

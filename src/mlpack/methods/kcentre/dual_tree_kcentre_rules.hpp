@@ -8,7 +8,6 @@
 
 #include <mlpack/prereqs.hpp>
 #include <mlpack/core/tree/traversal_info.hpp>
-#include "union_and_find.hpp"
 
 namespace mlpack{
 namespace KCentre{
@@ -20,7 +19,6 @@ namespace KCentre{
              */
             DualTreeKcentreRules(const MatType & dataset,
                                  MetricType & metric,
-                                 UF & connections,
                                  arma::vec& distances
                                  );
             
@@ -32,8 +30,6 @@ namespace KCentre{
         private:
             //! The data points
             MatType& dataset;
-            //! To store the relation of current centres and points
-            UF & connections;
             //! To store the current state of the distances
             arma::vec& distances;
             //! To store the metric object
@@ -44,3 +40,5 @@ namespace KCentre{
     };
 }
 }
+#include "dual_tree_kcentre_rules_impl.hpp"
+#endif

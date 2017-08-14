@@ -4,7 +4,10 @@
  */
 #ifndef MLPACK_METHODS_DUAL_TREE_KCENTRE_IMPL_HPP
 #define MLPACK_METHODS_DUAL_TREE_KCENTRE_IMPL_HPP
+#include <mlpack/prereqs.hpp>
+#include <mlpack/core/tree/binary_space_tree.hpp>
 #include "dual_tree_kcentre.hpp"
+
 namespace mlpack{
 namespace KCentre{
 /*An implementation of Dual Tree Kcentre
@@ -40,6 +43,7 @@ namespace KCentre{
     DualTreeKCentre<MetricType , MatType>::
     void ComputeKCentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
         Intialize(centres , 0 );
+        RulesType rule(dataset , metric , distances);
         for(auto iteration = 1 ; iteration < max_iterations && iteration < num_centres ; iteration++){
             //! Create a traverser;
             typename TreeType:: template DualTreeTraverser<RuleType> traverser(rules);

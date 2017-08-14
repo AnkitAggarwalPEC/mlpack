@@ -13,10 +13,8 @@ namespace KCentre{
     DualTreeKcentreRules<MetricType , TreeType , MatType>::
     DualTreeKcentreRules(const MatType & dataset ,
                         MetricType & metric ,
-                        UF & connections,
                         arma::vec& distances):
                         dataset(dataset),
-                        connections(connections),
                         distances(distances),
                         metric(metric)
     {
