@@ -48,7 +48,7 @@ namespace KCentre{
 
     template<typename MetricType ,typename TreeType , typename MatType>
     double DualTreeKcentreRules<MetricType , TreeType , MatType>::
-    Rescore(TreeType& queryNode , TreeType & referenceNode , const double oldScore){
+    Rescore(TreeType& queryNode , TreeType & /*referenceNode*/ , const double oldScore){
         auto bound  = CalculateBound(queryNode);
         return bound > oldScore ?oldScore : DBL_MAX;
         

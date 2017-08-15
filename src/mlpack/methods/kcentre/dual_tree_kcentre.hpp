@@ -23,7 +23,7 @@ namespace KCentre{
         /*
          * Destructor for the DualTreeKcentre
          */
-        ~DualTreeKCentre();
+        ~DualTreeKCentre(){}
         /*
          * Intialize the distance matrix with initial centre
          */

@@ -13,7 +13,7 @@ namespace KCentre{
 
 template <typename TreeType , typename MatType = arma::mat>
 TreeType * BuildTree(MatType & dataset ,
-        const typename std::enable_if<!tree::TreeTraits<TreeType>::RearrangesDataset>::type* = 0){
+        const typename std::enable_if<tree::TreeTraits<TreeType>::RearrangesDataset>::type* = 0){
         return new TreeType(std::forward<MatType>(dataset));
 }
 /*An implementation of Dual Tree Kcentre
@@ -45,7 +45,7 @@ TreeType * BuildTree(MatType & dataset ,
     ComputeKcentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
         Initialize(centres , 0 );
         RulesType rules(dataset , metric , distances);
-        for(auto iteration = 1 ; iteration < max_iterations && iteration < num_centres ; iteration++){
+        for(size_t iteration = 1 ; iteration < max_iterations && iteration < num_centres ; iteration++){
             //! Create a traverser;
             typename TreeType:: template DualTreeTraverser<RulesType> traverser(rules);
             traverser.Traverse(*tree , *tree);
