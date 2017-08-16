@@ -7,9 +7,9 @@
 #include "kcentre.hpp"
 #include <mlpack/prereqs.hpp>
 #include <mlpack/core/util/cli.hpp>
+#include <mlpack/core/util/mlpack_main.hpp>
 #include "sample_initialization.hpp"
 #include "kcentre_helper.hpp"
-
 
 PARAM_MATRIX_IN("input" , "Input dataset" , "i");
 PARAM_INT_IN("centres" , "Inpit number of centres" , "c" , 0);
@@ -22,9 +22,9 @@ PARAM_INT_IN("max_iterations" , "Maximum number of iterations"  , "m" , 1000);
 PARAM_MATRIX_IN("initial_centres" , "Matrix to specify staring selected centre" , "I");
 PARAM_STRING_IN("algorithm" , "Algrithm to use" , "a", "naive");
 
-int main(int argc , char * argv[]){
+void mlpackMain(){
     
-    CLI::ParseCommandLine(argc, argv);
+    //CLI::ParseCommandLine(argc, argv);
     if(!CLI::HasParam("output")){
         Log::Warn << "--output_file is not specified, so no output will be saved" << std::endl;
     }
@@ -61,5 +61,4 @@ int main(int argc , char * argv[]){
     }
     Timer::Stop("Run Time");
     
-    return 0;
 }
