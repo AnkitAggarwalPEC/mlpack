@@ -19,7 +19,7 @@ namespace KCentre{
              */
             DualTreeKcentreRules(MatType & dataset,
                                  MetricType & metric,
-                                 arma::vec& distances
+                                 MatType & distances
                                  );
             
             double BaseCase(const size_t queryIndex , const size_t referenceIndex);
@@ -37,7 +37,7 @@ namespace KCentre{
             //! The data points
             MatType& dataset;
             //! To store the current state of the distances
-            arma::vec& distances;
+            MatType& distances;
             //! To store the metric object
             MetricType& metric;
             //! Update the bound info for the given query node

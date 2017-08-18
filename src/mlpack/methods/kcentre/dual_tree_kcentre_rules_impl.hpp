@@ -14,7 +14,7 @@ namespace KCentre{
     DualTreeKcentreRules<MetricType , TreeType , MatType>::
     DualTreeKcentreRules(MatType & dataset ,
                         MetricType & metric ,
-                        arma::vec& distances):
+                        MatType& distances):
                         dataset(dataset),
                         distances(distances),
                         metric(metric)
