@@ -7,6 +7,7 @@
 #include <mlpack/prereqs.hpp>
 #include <mlpack/core/tree/binary_space_tree.hpp>
 #include "dual_tree_kcentre.hpp"
+#include "kcentre_helper.hpp"
 
 namespace mlpack{
 namespace KCentre{
@@ -14,18 +15,20 @@ namespace KCentre{
 template <typename TreeType , typename MatType = arma::mat>
 TreeType * BuildTree(MatType & dataset ,
         const typename std::enable_if<tree::TreeTraits<TreeType>::RearrangesDataset>::type* = 0){
-        return new TreeType(std::forward<MatType>(dataset));
+        return new TreeType(dataset);
 }
 /*An implementation of Dual Tree Kcentre
  */
     template <typename MetricType , typename MatType>
     DualTreeKCentre<MetricType , MatType>::
-    DualTreeKCentre(MatType & dataset , MetricType & metric):
+    DualTreeKCentre(MatType & data , MetricType & metric):
         metric(metric),
-        dataset(dataset),
+        dataset(data),
         tree(BuildTree<TreeType>(dataset))
     {
         //! Set the default distance
+        std::cout << "Distance matix " << dataset.n_cols << std::endl;
+        std::cout << "Distance matix " << data.n_cols << std::endl;
         distances.set_size(dataset.n_cols),
         distances.fill(-DBL_MAX);
     }
@@ -38,6 +41,7 @@ TreeType * BuildTree(MatType & dataset ,
         for (size_t index =  0 ; index < dataset.n_cols ; index++){
             distances.col(index) = metric.Evaluate(centres.col(initial_centre), dataset.col(index));
         }
+        print_matrix<arma::mat>(distances);   
     }
 
     template <typename MetricType , typename MatType>

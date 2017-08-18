@@ -6,6 +6,7 @@
 #ifndef MLPACK_METHODS_DUAL_TREE_KCENTRE_RULES_IMPL_HPP
 #define MLPACK_METHODS_DUAL_TREE_KCENTRE_RULES_IMPL_HPP
 #include "dual_tree_kcentre_rules.hpp"
+#include "kcentre_helper.hpp"
 
 namespace mlpack{
 namespace KCentre{
