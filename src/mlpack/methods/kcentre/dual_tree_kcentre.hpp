@@ -45,7 +45,7 @@ namespace KCentre{
         /*
          * Distance matrix for each point
          */
-        arma::vec distances;
+        MatType distances;
         /*
          * To store the metric object
          */

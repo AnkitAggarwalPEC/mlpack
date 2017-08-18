@@ -29,7 +29,7 @@ TreeType * BuildTree(MatType & dataset ,
         //! Set the default distance
         std::cout << "Distance matix " << dataset.n_cols << std::endl;
         std::cout << "Distance matix " << data.n_cols << std::endl;
-        distances.set_size(dataset.n_cols),
+        distances.set_size(1 , dataset.n_cols),
         distances.fill(-DBL_MAX);
     }
     
@@ -37,7 +37,7 @@ TreeType * BuildTree(MatType & dataset ,
     template <typename MetricType , typename MatType>
     void DualTreeKCentre<MetricType , MatType>::
     Initialize(MatType & centres , size_t initial_centre){
-
+        
         for (size_t index =  0 ; index < dataset.n_cols ; index++){
             distances.col(index) = metric.Evaluate(centres.col(initial_centre), dataset.col(index));
         }
