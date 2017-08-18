@@ -45,6 +45,7 @@ namespace KCentre{
             int & CentreIndex(){ return centreIndex;}
             int & FarthestPointIndex() { return farthestPointIndex;}
             void SetFarthestCentrePointer(TreeType ** ptr){ nodePtr = ptr; }
+            double & SetMaxDistancedPoint(){ return maxDistancedPointDistance;}
         private:
             const MatType & dataset;
             MatType & centres;

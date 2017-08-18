@@ -40,8 +40,11 @@ namespace KCentre{
             typename TreeType::template SingleTreeTraverser<RulesType> traverser(rules);
             traverser.Traverse(0 , *tree);
             //Iterate();
+            std::cout << "Farthest point index" << rules.FarthestPointIndex() << std::endl;
             centres.col(iterations) = datasetOrig.col(rules.FarthestPointIndex());
             if (farthestCentrePointPtr != nullptr) farthestCentrePointPtr->Stat().IsThisCentre() = true;
+            rules.SetMaxDistancedPoint() = DBL_MIN;
+
         }
 
     }

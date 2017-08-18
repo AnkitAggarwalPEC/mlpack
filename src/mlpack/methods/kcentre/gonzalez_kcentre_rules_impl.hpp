@@ -39,7 +39,8 @@ namespace KCentre{
             }
             // Evaluating the distance of each point from the current index and update the stats
             auto distance = metric.Evaluate(centres.col(centreIndex) , dataset.col(referenceNode.Point(i)));
-
+            print_matrix<arma::mat>(centres , centreIndex);
+            print_matrix<arma::mat>(dataset , referenceNode.Point(i));
             if(std::fabs(distance - 0) <= elipson * std::fmax(std::fabs(distance), std::fabs(0))){
                 //! Distance between the reference point and choosen centre is very less
                 referenceNode.Stat().IsThisCentre() = true;
@@ -49,8 +50,12 @@ namespace KCentre{
                 referenceNode.Stat().Distance() = distance;
             }
             if(referenceNode.Stat().Distance() > maxDistancedPointDistance ){
+                std::cout << "Updated the distance " << std::endl;
                 maxDistancedPointDistance = referenceNode.Stat().Distance();
                 farthestPointIndex = referenceNode.Point(i);
+                std::cout << "Max Distanced Point" <<std::endl;
+                print_matrix<arma::mat>(dataset,referenceNode.Point(i));
+                std::cout << std::endl;
                 *nodePtr = &referenceNode;    
             }
         }
