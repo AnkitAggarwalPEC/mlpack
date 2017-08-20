@@ -13,9 +13,10 @@ namespace mlpack{
 namespace KCentre{
 
 template <typename TreeType , typename MatType = arma::mat>
-TreeType * BuildTree(MatType & dataset ,
+TreeType * BuildTree(MatType && dataset,
+        std::vector <size_t> & oldFromNew,
         const typename std::enable_if<tree::TreeTraits<TreeType>::RearrangesDataset>::type* = 0){
-        return new TreeType(dataset);
+        return new TreeType(std::forward <MatType>(dataset) , oldFromNew , 1);
 }
 /*An implementation of Dual Tree Kcentre
  */
@@ -24,11 +25,12 @@ TreeType * BuildTree(MatType & dataset ,
     DualTreeKCentre(MatType & data , MetricType & metric):
         metric(metric),
         dataset(data),
-        tree(BuildTree<TreeType>(dataset))
+        tree(BuildTree<TreeType>(dataset , oldFromNew))
     {
         //! Set the default distance
         std::cout << "Distance matix " << dataset.n_cols << std::endl;
         std::cout << "Distance matix " << data.n_cols << std::endl;
+        std::cout << "old from new " << oldFromNew.size() << std::endl;
         distances.set_size(1 , dataset.n_cols),
         distances.fill(-DBL_MAX);
     }
@@ -41,14 +43,17 @@ TreeType * BuildTree(MatType & dataset ,
         for (size_t index =  0 ; index < dataset.n_cols ; index++){
             distances.col(index) = metric.Evaluate(centres.col(initial_centre), dataset.col(index));
         }
-        print_matrix<arma::mat>(distances);   
+        print_matrix<arma::mat>(distances);
+        std::cout << "Reached here" << std::endl;
+        std::cout << oldFromNew.size() << std::endl;
+        print_vector(oldFromNew);
     }
 
     template <typename MetricType , typename MatType>
     void DualTreeKCentre<MetricType , MatType>::
     ComputeKcentre(MatType & centres ,  size_t num_centres , size_t max_iterations){
         Initialize(centres , 0 );
-        RulesType rules(dataset , metric , distances);
+        RulesType rules(dataset , metric , distances , oldFromNew);
         for(size_t iteration = 1 ; iteration < max_iterations && iteration < num_centres ; iteration++){
             //! Create a traverser;
             typename TreeType:: template DualTreeTraverser<RulesType> traverser(rules);

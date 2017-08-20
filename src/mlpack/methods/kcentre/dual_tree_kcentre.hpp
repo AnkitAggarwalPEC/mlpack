@@ -65,7 +65,9 @@ namespace KCentre{
         /*
          * Typedef for the rules object
          */
-        typedef DualTreeKcentreRules<MetricType,TreeType,MatType> RulesType; 
+        typedef DualTreeKcentreRules<MetricType,TreeType,MatType> RulesType;
+        
+        std::vector <size_t> oldFromNew;
 
     };
 }

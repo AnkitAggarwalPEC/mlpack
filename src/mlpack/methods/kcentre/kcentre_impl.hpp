@@ -59,7 +59,6 @@ void kcentre<MetricType ,
                     //fill the centres matrix with InitialPartitionPolicy
                      InitialPartitionPolicy::Centres(data,num_centres ,centres);
                  }
-                 std::cout << data.n_cols << std::endl;
                  Solver<MetricType ,  MatType> solver_obj(data , metric);
                  solver_obj.ComputeKcentre(centres , num_centres , maxIterations);
                  

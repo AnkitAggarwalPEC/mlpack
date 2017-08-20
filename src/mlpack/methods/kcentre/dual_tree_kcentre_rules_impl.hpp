@@ -14,10 +14,12 @@ namespace KCentre{
     DualTreeKcentreRules<MetricType , TreeType , MatType>::
     DualTreeKcentreRules(MatType & dataset ,
                         MetricType & metric ,
-                        MatType& distances):
+                        MatType& distances,
+                        std::vector <size_t> &oldFromNew):
                         dataset(dataset),
                         distances(distances),
-                        metric(metric)
+                        metric(metric),
+                        oldFromNew(oldFromNew)
     {
         //! constructor
     }
@@ -27,15 +29,15 @@ namespace KCentre{
     BaseCase(const size_t queryIndex, const size_t referenceIndex){
         //! Calculate the distance between the query point and the reference point and update the distance matrix if this can be possible centre
         double newUpperBound = -1.0;
-        auto distance = metric.Evaluate(dataset.col(queryIndex), dataset.col(referenceIndex));
+        auto distance = metric.Evaluate(dataset.col(GetOrigialIndex(queryIndex)), dataset.col(GetOrigialIndex(referenceIndex)));
         //! Assumption metric(a , b) == metric(b , a)
         //! Update the distance matrix for the query index
-        if(this->distances[queryIndex] > distance){
-            distances[queryIndex] = distance;
+        if(this->distances[GetOrigialIndex(queryIndex)] > distance){
+            distances[GetOrigialIndex(queryIndex)] = distance;
         }
         //! Update the distance matrix for the reference index
-        if(this->distances[referenceIndex] > distance){
-            distances[referenceIndex] = distance;
+        if(this->distances[GetOrigialIndex(referenceIndex)] > distance){
+            distances[GetOrigialIndex(referenceIndex)] = distance;
         }
         if(distance >  newUpperBound) newUpperBound = distance;
         return newUpperBound;
@@ -44,7 +46,7 @@ namespace KCentre{
     template<typename MetricType ,typename TreeType , typename MatType>
     double DualTreeKcentreRules<MetricType , TreeType , MatType>::
     Rescore(const size_t queryIndex , TreeType & /*referenceNode*/ , const double oldScore){
-        return distances[queryIndex] > oldScore ? oldScore:DBL_MAX;
+        return distances[GetOrigialIndex(queryIndex)] > oldScore ? oldScore:DBL_MAX;
     }
 
     template<typename MetricType ,typename TreeType , typename MatType>
@@ -57,9 +59,9 @@ namespace KCentre{
     template<typename MetricType ,typename TreeType , typename MatType>
     double DualTreeKcentreRules<MetricType , TreeType , MatType>::
     Score(const size_t queryIndex , TreeType & referenceNode){
-        const arma::vec queryPoint = dataset.unsafe_col(queryIndex);
+        const arma::vec queryPoint = dataset.unsafe_col(GetOrigialIndex(queryIndex));
         auto distance = referenceNode.MinDistance(queryPoint);
-        return distances[queryIndex] > distance ? distance:DBL_MAX;
+        return distances[GetOrigialIndex(queryIndex)] > distance ? distance:DBL_MAX;
     }
     
     template<typename MetricType ,typename TreeType , typename MatType>
@@ -86,7 +88,7 @@ namespace KCentre{
 
         for (size_t i = 0 ; i < queryNode.NumPoints() ; ++i){
             //! Bound will be the distance
-            const double bound = distances[queryNode.Point(i)];
+            const double bound = distances[GetOrigialIndex(queryNode.Point(i))];
             if(bound > worstPointCentreDistance) worstPointCentreDistance = bound;
             if(bound < bestPointCentreDistance) bestPointCentreDistance = bound;
         }

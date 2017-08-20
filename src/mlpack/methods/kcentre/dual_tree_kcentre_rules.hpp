@@ -19,7 +19,8 @@ namespace KCentre{
              */
             DualTreeKcentreRules(MatType & dataset,
                                  MetricType & metric,
-                                 MatType & distances
+                                 MatType & distances,
+                                 std::vector <size_t> &oldFromNew
                                  );
             
             double BaseCase(const size_t queryIndex , const size_t referenceIndex);
@@ -33,6 +34,7 @@ namespace KCentre{
             const TraversalInfoType & TraversalInfo() const {return transversalInfo;}
 
             TraversalInfoType & TraversalInfo() {return transversalInfo;}
+
         private:
             //! The data points
             MatType& dataset;
@@ -42,8 +44,9 @@ namespace KCentre{
             MetricType& metric;
             //! Update the bound info for the given query node
             double CalculateBound(TreeType & qeuryNode);
-
-            TraversalInfoType transversalInfo; 
+            size_t GetOrigialIndex(size_t idx){ return oldFromNew[idx];}
+            TraversalInfoType transversalInfo;
+            std::vector <size_t> &oldFromNew;
 
     };
 }

@@ -16,6 +16,8 @@ PARAM_INT_IN("centres" , "Inpit number of centres" , "c" , 0);
 using namespace mlpack;
 using namespace mlpack::KCentre;
 using namespace std;
+using namespace mlpack::tree;
+using namespace mlpack::metric;
 
 PARAM_MATRIX_OUT("output" , "Matrix to store output labels" , "o");
 PARAM_INT_IN("max_iterations" , "Maximum number of iterations"  , "m" , 1000);
@@ -51,8 +53,11 @@ void mlpackMain(){
     Timer::Start("Run Time");
     if(algorithm == "dualtree"){
         // run the dual tree algorithm
-        kcentre< metric::EuclideanDistance , SampleInitialization, DualTreeKCentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
-        kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
+        //kcentre< metric::EuclideanDistance , SampleInitialization, DualTreeKCentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
+        //kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
+        std::vector <size_t> oldFromNew;
+        KDTree<EuclideanDistance, DualTreeKcentreStats , arma::mat> tree(dataPoints, oldFromNew, 1 );
+        std::cout <<"OldFrom" <<  oldFromNew.size() << std::endl;
     }
     else if(algorithm == "naive"){
         // run the gonzalez algorithm
