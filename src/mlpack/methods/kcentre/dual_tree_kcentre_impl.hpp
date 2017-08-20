@@ -24,9 +24,9 @@ TreeType * BuildTree(MatType && dataset,
     DualTreeKCentre<MetricType , MatType>::
     DualTreeKCentre(MatType & data , MetricType & metric):
         metric(metric),
-        dataset(data),
-        tree(BuildTree<TreeType>(dataset , oldFromNew))
+        dataset(data)
     {
+        tree = new TreeType(dataset ,  oldFromNew , 1) ; 
         //! Set the default distance
         std::cout << "Distance matix " << dataset.n_cols << std::endl;
         std::cout << "Distance matix " << data.n_cols << std::endl;
