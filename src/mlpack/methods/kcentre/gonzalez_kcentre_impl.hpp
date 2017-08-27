@@ -29,7 +29,7 @@ namespace KCentre{
 
     template<typename MetricType, typename MatType>
     void GonzalezKcentre<MetricType,MatType>::
-    ComputeKcentre(MatType & centres , size_t num_centres , size_t max_iteration){
+    ComputeKcentre(MatType & centres , size_t num_centres , size_t max_iteration , size_t index){
         size_t iterations = 0;
         RulesType rules(datasetOrig , centres , metric);
         for (iterations  = 1 ; iterations < max_iteration && iterations < num_centres ; iterations++ ){

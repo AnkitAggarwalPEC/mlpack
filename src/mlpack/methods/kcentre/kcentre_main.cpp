@@ -52,12 +52,8 @@ void mlpackMain(){
     auto algorithm = CLI::GetParam<std::string>("algorithm");
     Timer::Start("Run Time");
     if(algorithm == "dualtree"){
-        // run the dual tree algorithm
         kcentre< metric::EuclideanDistance , SampleInitialization, DualTreeKCentre ,  arma::mat> kcentre_obj(maxIterations, metric::EuclideanDistance(), SampleInitialization());
         kcentre_obj.Centres(dataPoints , numCentres, centres , initialCentresGuess);
-        //std::vector <size_t> oldFromNew;
-        //KDTree<EuclideanDistance, DualTreeKcentreStats , arma::mat> tree(dataPoints, oldFromNew, 1 );
-        //std::cout <<"OldFrom" <<  oldFromNew.size() << std::endl;
     }
     else if(algorithm == "naive"){
         // run the gonzalez algorithm

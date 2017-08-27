@@ -12,7 +12,7 @@
 #include <mlpack/core/metrics/lmetric.hpp> //include for distance function definition
 #include <mlpack/core/tree/binary_space_tree.hpp>
 #include "gonzalez_kcentre.hpp"
-#include "dual_tree_kcentre.hpp"
+#include "dual_tree_kcentre_new.hpp"
 
 namespace mlpack{
 namespace KCentre{

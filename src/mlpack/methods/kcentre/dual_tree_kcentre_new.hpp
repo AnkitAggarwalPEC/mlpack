@@ -5,9 +5,9 @@
 #ifndef MLPACK_METHODS_DUAL_TREE_KCENTRE_HPP
 #define MLPACK_METHODS_DUAL_TREE_KCENTRE_HPP
 #include <mlpack/core/tree/binary_space_tree.hpp>
-#include "dual_tree_kcentre_rules.hpp"
-#include "dual_tree_kcentre_stats.hpp"
 #include <mlpack/core/metrics/lmetric.hpp>
+#include <mlpack/methods/range_search/range_search.hpp>
+#include <set>
 namespace mlpack{
 namespace KCentre{
 /*
@@ -31,7 +31,7 @@ namespace KCentre{
         /*
          * To run the whole process
          */
-        void ComputeKcentre(MatType & centres , size_t num_centres , size_t max_iterations);
+        void ComputeKcentre(MatType & centres , size_t num_centres , size_t max_iterations , size_t index);
         /*
          * Run the single iteration of the Dual Tree Algorithm
          */
@@ -39,7 +39,7 @@ namespace KCentre{
         /*
          * Select new centre
          */
-        size_t SelectNewCentre();
+        size_t SelectNewCentre(std::set <size_t> &);
 
         private:
         /*
@@ -55,22 +55,18 @@ namespace KCentre{
          */
         MatType & dataset;
         /*
-         * Typedef for the tree
+         * Typedef for the Range search
          */
-        typedef tree::KDTree <MetricType ,DualTreeKcentreStats, MatType> TreeType;
-        /*
-         * To store the tree
-         */
-        TreeType * tree;
-        /*
-         * Typedef for the rules object
-         */
-        typedef DualTreeKcentreRules<MetricType,TreeType,MatType> RulesType;
-        
-        std::vector <size_t> oldFromNew;
+        typedef range::RangeSearch<MetricType, MatType,tree::BallTree> RangeSearchType;
+
+        RangeSearchType * rs;
+
+        double maxPossibleDistance;
+
+        double minPossibleDistance;
 
     };
 }
 }
-#include "dual_tree_kcentre_impl.hpp"
+#include "dual_tree_kcentre_impl_new.hpp"
 #endif

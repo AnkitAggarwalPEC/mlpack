@@ -10,11 +10,11 @@ set(SOURCES
     gonzalez_kcentre_statistic.hpp
     kcentre.hpp
     kcentre_impl.hpp
-    dual_tree_kcentre.hpp
-    dual_tree_kcentre_impl.hpp
-    dual_tree_kcentre_rules.hpp
-    dual_tree_kcentre_rules_impl.hpp
-    dual_tree_kcentre_stats.hpp
+    dual_tree_kcentre_new.hpp
+    dual_tree_kcentre_impl_new.hpp
+    #dual_tree_kcentre_rules.hpp
+    #dual_tree_kcentre_rules_impl.hpp
+    #dual_tree_kcentre_stats.hpp
 )
 
 # Add directory name to sources.

@@ -25,12 +25,13 @@ class SampleInitialization{
      * @param centres Matrix to put initial centres into
      */
     template<typename MatType>
-    inline static void Centres(const MatType& data,
+    static size_t Centres(const MatType& data,
                              const size_t num_centres,
                              arma::mat& centres){
         centres.set_size(data.n_rows , num_centres);
         const auto index = math::RandInt(0 , data.n_cols);
         centres.col(0) = data.col(index);
+        return index;
     }
 };
 }

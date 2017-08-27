@@ -25,7 +25,7 @@ namespace KCentre{
             /*
              * To run the whole process
              */
-            void ComputeKcentre(MatType & centres  , size_t num_centres , size_t max_iteration) ;
+            void ComputeKcentre(MatType & centres  , size_t num_centres , size_t max_iteration , size_t index = 0) ;
             /*
              * Run the single iteration of Gonzalez Algorithm updating the given centres to new centres
              */
